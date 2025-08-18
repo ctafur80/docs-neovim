@@ -1,0 +1,253 @@
+
+
+
+### Resaltado
+
+En cuanto a la terminología, personalmente me gusta llamarlo _resaltado de
+código_ (_code highlighting_) o _resaltado léxico_ (_lexical highlighting_),
+pero hay que decir que lo que más encontrará es _resaltado de sintaxis_
+(_syntax highlighting_). Personalmente, prefiero llamarlo _resaltado_
+(_highlighting_), a secas.
+
+En realidad, actualmente, las reglas de resaltado de código no se basan solo
+en la sintaxis, sino que también usan la semántica (_semantics_). Por esto
+no me gusta esta última denominación. También, hay quien lo llama _coloreado
+de código_ (_code coloring_), pero no me gusta, pues en realidad el
+resaltado hace varias cosas a parte de colorear el código; por ejemplo,
+puede hacer uso de recursos tipográficos como las itálicas (_italics_) o la
+negrita (_boldface_).
+
+Puede acceder a la ayuda de Vim sobre esta cuestión con `:help syntax`.
+
+Si usa Vim o alguna de sus bifurcaciones en un terminal, es decir, en su
+versión CLI (no GUI), quizás se vea limitado a este respecto por el emulador
+de terminal (_terminal emulator_) que esté empleando, pues los hay que no
+tienen compatibilidad con los esquemas de colores (_color schemes_) con
+_truecolor_, como sucede, por ejemplo, con la aplicación Terminal incluida
+de serie en macOS. En el código de los esquemas de colores de Vim, a los
+colores para _truecolor_ los llaman `gui`, mientras que a los esquemas más
+limitados los llaman `cli`. Para especificar a Vim a que ponga _truecolors_,
+se hace con
+
+```vim
+set termguicolor
+```
+
+No he encontrado la forma de hacerlo con la API de Lua.
+
+También está la cuestión de las gramáticas que se emplean, es decir, las
+reglas que se siguen para aplicar distintos resaltados a distintas partes
+del código.
+
+Aunque pueda parecer algo muy rudimentario, la mayoría de los editores e
+IDEs crean esas gramáticas mediante expresiones regulares. Es el caso, por
+ejemplo, de VSCode o Sublime Text. También, Vim y Emacs traen de serie
+implementada esa funcionalidad mediante expresiones regulares.
+
+Se podría decir que actualmente el estándar _de facto_ en cuanto a las
+gramáticas de resaltado de código son las de TextMate, un IDE creado por
+Apple.
+
+Seguramente, [el resaltado de sintaxis de TextMate sea más completo que el
+de Vim](https://news.ycombinator.com/item?id=13601763). Aun así, en algunos
+casos es mejor el de Vim, por ejemplo, mediante la extensión
+[VimTeX]{.plgin} se tiene una gramática muy buena para el resaltado de
+código TeX o LaTeX. También, me pareció mejor el resaltado de código de los
+_makefiles_ (los archivos de la herramienta `make`).
+
+En cualquier caso, el resaltado mediante expresiones regulares siempre va a
+tener muchas carencias. Existe una herramienta que ha dado vida nueva al
+resaltado de código. Me refiero a Tree-Sitter, creada por Max Brunsfeld, uno
+de los miembros del equipo original del editor Atom, de la empresa GitHub.
+Ahora, Brunsfeld está junto a varios excompañeros de GitHub, creando un
+editor/IDE llamado Zed que tiene mucho potencial por lo que veo.
+Evidenteente, dicho editor también hace uso de Tree-Sitter.
+
+La mejor explicación sobre Tree-Sitter es, para mí, [la que dio el propio
+Brunsfeld en una conferencia][brunsfeld-tree-s-conf].
+
+[brunsfeld-tree-s-conf]: https://www.youtube.com/watch?time_continue=688&v=Jes3bD6P0To
+
+Por lo que dice Brunsfeld, la forma de abordar el problema de Tree-Sitter,
+respecto a las expresiones regulares, simplifica el problema y hace más
+sencillo el desarrollo de esas gramáticas.
+
+La buena noticia es que Neovim es de serie compatible con la tecnología
+Tree-Sitter. Creo que, a partir de su versión 0.5, Neovim cuenta con soporte
+nativo de Tree-sitter. Aunque no es necesario ningún _plug-in_ para usar
+resaltado mediante Tree-Sitter en Neovim, sí es recomendable el uso de
+[`nvim-treesitter`]{.plgin}[], que hace por nosotros la descarga de los
+parseadores de Tree-Sitter de los distintos lenguajes. En cualquier caso,
+esta también se podria hacer manualmente. Quizás, la gestión externa de las
+gramáticas de Tree-Sitter sea más conveniente si va a usar en su sistema más
+de un editor compatible con estas.
+
+[`nvim-treesitter`]: https://github.com/nvim-treesitter/nvim-treesitter
+
+Por otra parte, también hay quien piensa que se podría llegar a implementar
+la gramática de resaltado de código a partir de LSP, ya que Neovim trae
+también soporte nativo para este desde su versión 0.5. Hay quien cree que es
+mejor hacerlo por Tree-sitter. En cualquier caso, LSP suele ser para otras
+cosas, como, por ejemplo, para _linters_.
+
+Tree-Sitter puede usarse, tal y como muestra Brunsfeld en la presentación
+referida antes, para hacer ediciones más inteligentes de lo que permiten los
+editores tradicionales. Así, por ejemplo, le permite cambiar el nombre de
+cierto objeto en particular, independientemente de que dicho nombre coincida
+con partes de otros objetos. Es decir, le permite refactorizar en
+condiciones. La complejidad en este sentido no tiene límites.
+
+A este respecto, existe un _plug-in_ de Neovim, relacionado con
+`nvim-treesitter`, que le permite asignar secuencias de teclas en modo
+normal a ediciones extrañas del editor, gracias a la inteligencia de
+Tree-Sitter. Este _plug-in_ se llama
+[`nvim-treesitter-textobjects`]{.plgin}[].
+
+[`nvim-treesitter-textobjects`]: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+
+En cualquier caso, conviene explicar también los ajustes de Neovim para las
+gramáticas tradicionales, basadas en expresiones regulares, pues a día de
+hoy estas conviven con las de Tree-Sitter.
+
+Tal y como se explica [aquí][proceso-resaltado-1] y
+[aquí][proceso-resaltado-2], el proceso consiste en dos pasos. Primero,
+asignar tokens según las reglas de las expresiones regulares. Tras la
+asignación de los tokens, se especifican las reglas de resaltado en función
+de los diversos tokens.
+
+[proceso-resaltado-1]: https://vim.fandom.com/wiki/Creating_your_own_syntax_files
+[proceso-resaltado-2]: https://superuser.com/a/844060
+
+En lo que respecta a los archivos de resaltado de código, la explicación la
+puede encontrar con `:help syn-files`.
+
+En principio, los archivos de resaltado de código en Neovim se encuentran en
+la ruta donde están los archivos de instalación de Neovim. Por ejemplo, para
+el sistema operativo macOS, si la instalación de Neovim se hizo mediante el
+gestor de _software_ Homebrew, se encontrarán bajo la carpeta
+_/usr/local/Cellar/neovim/[nvim_vers]{.ph}/share/nvim/runtime/syntax_. Por
+ejemplo, el archivo
+_/usr/local/Cellar/neovim/[nvim_vers]{.ph}/share/nvim/runtime/syntax/cpp.vim_
+es el que se usa para el resaltado de código C++.
+
+En una instalación mediante el gestor de paquetes Nix, estos se encontrarían
+bajo la carpeta
+_/nix/store/[hash_neovim_vers]{.ph}/share/nvim/runtime/syntax_. Ese
+[hash_neovim_vers]{.ph} podría ser, por ejemplo, algo así como
+`h5pc2ffyvacsg4qhw66gkgpjln24jhvr-neovim-0.8.0`. En cualquier caso, esas son
+carpetas que van cambiando, según la versión. Lo mejor sería consultar el
+vínculo simbólico _\~/.nix-profile/bin/nvim_ y, una vez en la carpeta a la
+que apunta este, entrar en _share/nvim/runtime/syntax_ (me refiero a la ruta
+relativa). Ahí se encuentran todos los archivos de gramáticas tradicionales
+de Neovim.
+
+Algunas de estas son también sobrescritas por algún _plug-in_. Por ejemplo,
+`vimtex` usa un archivo de resaltado de código distinto al que viene de
+forma predeterminada con Vim. Aun así, creo que el que trae Vim de serie es
+muy bueno. Incluso permite extenderlo para ciertas sintaxis particulares.
+Vea `:help mysyntaxfile-add`.
+
+Los archivos anteriores se deben dejar tal y como vienen, pues irán
+actualizándose con las distintas versiones de Neovim. Los ajustes finos que
+desee realizar sobre estos, puede hacerlos tanto en archivos de
+configuración bajo _/etc_, si es para una configuración global del sistema,
+o bajo _\~/.config/nvim_, si es para un usuario en concreto. Así, si crea el
+archivo _\~/.config/nvim/syntax.vim_ o _\~/.config/nvim/syntax.lua_, TKTK.
+
+<https://news.ycombinator.com/item?id=18349013>
+
+Para ver cómo se encuentran configurados los parámetros del resaltado
+léxico, basta con usar el comando `:highlights` sin argumentos.
+
+```vim
+:highlights
+```
+
+Así, se muestran todos los parámetros tal y como están actualmente.
+
+Algo de lo que debe ser consciente es de que no todos los esquemas de
+colores están pensados para usar Tree-Sitter. TKTK.
+
+
+
+* * * *
+
+
+
+En el ecosistema de Neovim, existen varios _plug-ins_ para facilitarle la
+labor de crear esquemas de colores. Por ejemplo, se tienen a [Lush][] y
+[Colorbuddy][].
+
+[Lush]: https://github.com/rktjmp/lush.nvim
+[Colorbuddy]: https://github.com/tjdevries/colorbuddy.nvim
+
+
+
+* * * *
+
+
+
+También está el
+[`completion-treesitter`](https://github.com/nvim-treesitter/completion-treesitter).
+
+
+
+* * * *
+
+
+Puede ver una buena [explicación de los archivos de
+sintaxis][tuto-sintaxis-vim], con ejemplos.
+
+[tuto-sintaxis-vim]: http://vim.wikia.com/wiki/Creating_your_own_syntax_files
+
+Los archivos de sintaxis para Vim se encuentran bajo el directorio
+_[vimruntime]{.ph}/syntax/_, donde el valor de [vimruntime]{.ph} dependerá
+de cómo lo instaló. Por ejemplo, si lo instaló mediante el gestor de
+paquetes Homebrew, será
+_/usr/local/Cellar/neovim/[nvim_vers]{.ph}/share/nvim/runtime_.
+
+Por ejemplo, el archivo _rst.vim_ será el que especifique la sintaxis para
+los archivos de reStructuredText. Al igual que suele pasar en los sistemas
+Unix, existe una jerarquía, normalmente, de 3 niveles, para los archivos de
+configuración. Creo que en este caso es como casi siempre:
+_\~/.config/nvim/_ tiene prevalencia sobre los demás, a nivel del usuario.
+Luego, hay uno de configuración para el sistema, en _/etc/_, y, finalmente,
+está el que dije antes, es decir, el del runtime, que no debe tocarse, pues
+se modifica con las actualizaciones de Neovim.
+
+Esto debería cambiar con Tree-sitter TKTK.
+
+Los archivos de indentación, se encuentran bajo _[vimruntime]{.ph}/intent/_.
+
+
+* * * *
+
+
+Algo de lo que debe ser consciente es de que existen ciertos lenguajes en
+los que se permite cambiar la sintaxis. Es lo que sucede, por ejemplo, en
+LaTeX, por medio del paquete `minted`, para el listado de código de
+programación. Gracias a dicho paquete, usted puede especificar una regla
+gramatical con la que insertar parte de un listado de código. Por ejemplo,
+puede determinar que todo lo que vaya entre barras verticales, como `|este
+código|` sería como si hubiese puesto la orden `verb+este código+`, con el
+propósito de que en el documento se muestre algo como `este código`. Pues
+bien, al hacer eso, está creando una regla de gramática nueva del lenguaje
+que está usando, es decir, LaTeX. Esto no puede saberlo una gramática de
+resaltado, a menos que se lo especifique. Quizás, ahora esto sí se permita,
+pues existen herramientas que otorgan lo que se conoce como el _resaltado
+semántico_ (_semantic highlighting_) TKTK.
+
+Hay quien podría considerar que es un error usar un paquete o bliblioteca en
+el que se permita usar una gramática distinta a la del propio lenguaje.
+TKTK.
+
+De hecho, a este respecto, en cuanto a la documentación, incluso hay quien
+considera que los sistemas de documentación no deberían ser programables.
+TKTK.
+
+
+
+
+
+
+

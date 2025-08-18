@@ -1,0 +1,30 @@
+
+
+
+### Modo remplazar
+
+Además de los modos más usuales, como insertar, normal, etc., existe el modo
+remplazar (_replace_), que es básicamente como el modo insertar pero, en
+lugar de desplazar el texto a la derecha del cursor, lo sobrescribe
+(_overtype_). Es muy cómodo para las tablas de los LMLs, por ejemplo. Se
+sale del mismo modo que siempre: con [Esc]{.kbd} volverá al modo normal.
+
+Para obtener información oficial, puede consultar, en la ayuda integrada del
+editor, la entrada `replace-mode` (`:help replace-mode` o, simplemente `:h
+replace-mode`). Se entra simplemente con la combinación de teclas
+[Shift]{.kbd} + [r]{.kbd}, dentro del modo normal. Verá que en la esquina
+inferior izquierda, donde se indica el modo en el que se encuentra, se
+muestra `-- REPLACE --`.
+
+Como curiosidad, en Neovim, como sabrá, el cursor es distinto en modo normal
+(cuadradito) que en modo insert (línea vertical). Pues bien, en modo replace
+es también distinto: es una línea horizontal bajo el carácter que va a
+reemplazar. Así es más cómodo a simple vista saber en qué modo se encuentra
+uno.
+
+Para las tablas ahora existe el [modo `virtualedit`][], que es bastante
+mejor.
+
+[modo `virtualedit`]: https://neovim.io/doc/user/usr_25.html#25.5
+
+

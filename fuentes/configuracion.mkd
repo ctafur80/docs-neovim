@@ -1,0 +1,64 @@
+
+
+
+### Configuración
+
+He de reconocer que no fue hasta hace relativamente poco que me di cuenta de
+que la configuración de Vim y de VSCode no son tan distintas. En Vim,
+tenemos un archivo _.vimrc_, que se escribe en lenguaje Vimscript, donde se
+especifican los _plug-ins_ que le cargamos, ajustes de Vim y ajustes de las
+extensiones. Algunos de los ajustes se podrían considerar extensiones en sí
+mismos.
+
+Por cierto, en Neovim han cambiado algunas cosas. El archivo de
+configuración suele ser _init.vim_. Además, el lenguaje que emplea el
+archivo de configuración puede ser, a partir de la versión 0.5, si lo
+prefiere, un archivo Lua, en cuyo caso será _init.lua_. Actualmente, en la
+versión 10, lo normal es ya que la gente que usa Neovim haga su
+configuración principalmente con la API de Lua, en lugar de con Vimscript,
+salvo en las partes en las que no se pueda.
+
+Una diferencia de Vim y Neovim con la mayoría de los IDEs es que en los
+primeros la configuración, además de declarativa, puede ser escriptable
+(_scriptable_). Así, además de poder especificar cosas básicas contempladas
+por el editor como el uso de espacios o _tabs_, en estos puede crear sus
+propias configuraciones.
+
+En los otros, lo que no se pueda configurar quizás pueda lograrse con el uso
+de alguna extensión. Si no encuentra una extensión para una funcionalidad
+que desee, puede crearla usted mismo, pero esto lleva más trabajo que
+implementarla en un _script_ en la configuración de Vim o Neovim.
+
+El lenguaje de _scripting_ para la configuración de Vim es Vimscript, que es
+un lenguaje creado _ad hoc_ para dicho proyecto. Tal y como hemos explicado
+en otras ocasiones en este documento, la filosofía de Neovim es más de
+delegar las cosas que se puedan delegar a otros proyectos. A este respecto,
+están sustituyendo Vimscript por Lua, un lenguaje minimalista que es muy
+cómodo de integrar TKTK.
+
+Este razonamiento tiene bastante sentido ya que crear un lenguaje propio
+paralelamente a la creación de un editor supone una pérdida de recursos
+destinados al desarrollo del editor.
+
+La contrapartida de tener configuraciones escriptables está en que, si no se
+sabe bien lo que se hace, puede suponer una amenaza para la seguridad del
+sistema. Así, por ejemplo, tal y [como recomienda Justin
+Keyes][keyes-project-config], es mejor que Neovim no tenga soporte para que
+se tengan configuraciones específicas de proyecto. Siempre puede especificar
+ajustes específicos para un proyecto en su configuración general
+especificando la ruta en la que se encuentra el proyecto. El problema
+estaría en que cualquiera pudiese tocar dicha configuración y crear o
+modificar _scripts_ que luego ejecutará su ejecutable de Neovim.
+
+[keyes-project-config]: https://github.com/neovim/neovim/issues/5784#issuecomment-506993689
+
+En Vim, ha existido durante mucho tiempo una funcionalidad llamada
+_modeline_ TKTK.
+
+No obstante, existe una especificación universal sobre ajustes básicos de
+edición llamada EditorConfig, para la que Neovim trae soporte de serie. Son
+ajustes básicos que se especifican de forma declarativa en un archivo
+_.editorcofig_ ubicado en la raíz del proyecto.
+
+
+

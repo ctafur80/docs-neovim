@@ -1,0 +1,17 @@
+
+
+
+### Editar documentación
+
+Para el lenguaje Markdown, existe un _plug-in_ llamado
+[`markdown-preview.nvim`](https://github.com/iamcco/markdown-preview.nvim)
+que permite que se abra un navegador web y se pueda previsualizar la salida
+del documento Markdown en formato web, además de sincronizarse con la parte
+del _buffer_ que se está editando en la ventana en Neovim. Lo cierto es que
+tiene bastante buena pinta.
+
+En realidad, tampoco es algo que sea importante, pues, al tratrse de un LML,
+es bastante cómodo de leer directamente en el código fuente.
+
+
+

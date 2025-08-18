@@ -1,0 +1,44 @@
+
+
+
+### Demasiado eficiente
+
+Aunque a quienes nos gusta programar solemos tener el impulso de pensar que
+lo ideal sería que todo fuese programable, esto quizás no tiene mucho
+sentido para ciertos ámbitos. Pensemos, por ejemplo, en TeX y LaTeX. TeX es
+el lenguaje que se suele usar para artículos académicos y libros de texto en
+ciertas áreas de la ciencia y la tecnología; matemáticas, física y ciencias
+de la computación, principalmente. Es un lenguaje de marcado (_mark-up
+language_), pero, al contrario que otros lenguajes de marcado, como, por
+ejemplo, HTML, TeX es un lenguaje Turing-completo, es decir, que se puede
+considerar que es un lenguaje de programación. ¿Esto es bueno? Para ciertas
+cosas sí y para otras no. Por ejemplo, le permite crear sus propios comandos
+y macros; o sea, tiene integrada la abstracción procedimental (lo que más
+comúnmente se llama _funciones_): puede reutilizar código, etc. Lo malo es
+que, si le doy un programa a alguien para que compile el documento a partir
+de las fuentes, al compilarlo podrá estar ejecutando en su sistema código
+que puede que sea peligroso. Por el contrario, otros lenguajes menos
+"programables" ---es decir, que no son Turing-completos--- y que sirven para
+hacer documentos, como, por ejemplo, HTML ---o Markdown, que podría
+considerarse una versión simplificada de este---, le obligarán a crear un
+documento de una forma algo menos eficiente, pero tendrá la seguridad de que
+no ejecutará código arbitrario en su sistema, es decir, será más seguro.
+
+Para la parte de los documentos que se conoce como el cuerpo del texto
+(_body text_), no hay diferencia. Quizás, con TeX y LaTeX se pueda agilizar
+algo, pero la diferencia no será muy apreciable. Donde sí se puede sacar
+mayor provecho de TeX y LaTeX es en que le permiten hacer, sin demasiado
+esfuerzo, figuras y otro tipo de cosas TKTKTKTKTKTKTK de textos técnicos.
+
+Creo que existen varias soluciones a esto. Por ejemplo, ejecutar el código
+en algún entorno aislado, como una VM o un contenedor, o incluso en el
+propio servidor de GitHub, que ahora se puede.
+
+Otra, que me gusta algo menos, sería dar el documento final de solo lectura,
+como el archivo PDF, por ejemplo. No me gusta porque hay veces en que el
+documento es _open source_ y está pensado para colaboraciones, con lo que
+los colaboradores deberían, en principio, tener las fuentes y ejecutarlas en
+sus máquinas.
+
+
+

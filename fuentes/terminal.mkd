@@ -1,0 +1,60 @@
+
+
+### Terminal
+
+Referencias:
+
+- <https://www.youtube.com/watch?v=ooTcnx066Do>
+
+Neovim viene con un terminal integrado al que puede acceder para hacer
+ciertas acciones de forma rápida.
+
+Evidentemente, puede consultar la ayuda oficial: `:h terminal`.
+
+
+
+El atajo de teclado con el que se pone en modo normal desde el terminal es
+`<C-\><C-n>`, pero no logro hacerlo desde una disposición de teclas en
+español ya que la barra invertida requiere del uso de una tecla
+modificadora. En cualquier caso, he optado por remapearlo a [Esc]{.kbd}.
+
+```lua
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+```
+
+Advierta que hay que poner dos barras invertidas para poder escapar dicho
+sígno.
+
+En Vimscript sería
+
+```vim
+tnoremap <Esc> <C-\><C-n>
+```
+
+No se necesita escapar la barra invertida.
+
+Desde el modo normal en el terminal, puede hacer las mismas cosas que cuando
+edita un archivo. Puede pasar al modo visual, puede copiar (_yank_), buscar,
+etc. Esto hace que sea bastante cómodo interactuar con la salida del
+terminal. Con herramientas como Tmux, se puede hacer esto también, pero yo
+prefiero que esto venga integrado en Neovim, por varias razones. Una es que,
+si edito la salida del terminal desde Neovim, tengo todos los ajustes que
+haya hecho a Neovim. Además, me resulta más cómodo no tener que salir TKTK.
+
+Para volver al modo terminal, se hace como se vuelve al modo insert desde el
+modo normal: puede usar [a]{.kbd}, [i]{.kbd}, etc.
+
+
+
+
+Algo para lo que se puede usar también el terminal integrado de Neovim es
+para especificar formas rápidas de lanzar instrucciones de diverso tipo. A
+esto es a lo que suelen llamar _tareas_ (_tasks_). Así, puede lanzar
+rápidamente una orden de Make, etc.
+
+
+
+
+
+
+

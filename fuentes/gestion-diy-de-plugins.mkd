@@ -1,0 +1,23 @@
+
+
+
+### Gestión DIY de _plug-ins_
+
+La forma háztelo tú mismo (_do it yourself_ o DIY) se beneficia de las
+funcionalidades que se han añadido últimamente tanto en Vim como Neovim para
+agrupar los _plugins_ en paquetes (_packages_, vea `:h packages`) y un
+comando para cargar los _plugins_ de un paquete.
+
+Mucha gente piensa que Vim y Neovim tienen ahora un gestor de _plugins_
+integrado (_built-in plugins manager_), pero no es así.
+
+Lo que hace ahora Vim de forma nativa es básicamente segregar los _plugins_
+y gestionar el _runtimepath_.
+
+La forma en la que la gente suele autogestionar sus plugins con estas nuevas
+funcionalidades es haciendo uso de submódulos de Git.
+
+<https://dev.to/iggredible/how-to-use-vim-packages-3gil>
+
+
+

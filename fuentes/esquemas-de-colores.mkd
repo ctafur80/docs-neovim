@@ -1,0 +1,51 @@
+
+
+
+
+### Esquemas de colores
+
+Lo que en el mundo de Vim llaman _esquemas de colores_ es lo mismo que se
+conoce normalmente como _temas_ (_themes_) en el ámbito del _software_.
+
+La mejor explicación básica sobre [cómo aprender a crear esquemas de
+colores](https://vi.stackexchange.com/a/2783) es esta.
+
+Con lo que he investigado, ya sé cómo se crea la syntax highlighting en Vim.
+
+Lo mejor que puede hacer es consultar la entrada `syntax` en la ayuda de Vim
+(`:h syntax`).
+
+Los ficheros están bajo _`<vim_runtime>`/syntax/_ (variable de entorno
+`VIMRUNTIME`). Esos son los que vienen con la instalación. Luego, puede usar
+otro, por ejemplo, uno hecho por usted. Deberá tenerlo bajo
+_\~/.config/nvim/syntax/_. Estos últimos tendrán precedencia sobre los
+otros. También, puede que un paquete le instale otro fichero de sintaxis,
+como, por ejemplo, el paquete `vimtex`. Personalmente, antes veía como
+imprescindible usar _plugins_ para todo, pero últimamente me he dado cuenta
+de que no son tan necesarios. Vim y Neovim tienen muchas funcionalidades sin
+necesidad de _plugins_, aunque no se lo parezca al principio.
+
+En la documentación de VSCode, vi que preferían no hablar de _syntax
+highlighting_, creo que debido a que están usando también la semántica en el
+coloreado. Por tanto, yo prefiero hablar de cada cosa por separado: _colors_
+y _tokenization_.
+
+Algo que me parece interesante explicar también aquí es una nueva tecnología
+que sacó Microsoft, llamada Language Server Protocol (LSP), que creo que
+consiste en que se tendrá un protocolo para convertir las gramáticas de los
+lenguajes en un lenguaje estándar. Por ejemplo, el parsing del compilador
+del lenguaje C se puede transformar en un fichero de sintaxis que puede
+usarse en distintos editores e IDEs. De momento, creo que no se está usando,
+pues es una tecnología que tiene poco tiempo, pero espero con impaciencia su
+llegada. En principio, la idea de LSP era para usarse en el completion,
+linting, etc., pero no tenían intención de usarlo para el coloreado. Por lo
+que he visto, en su repositorio de GitHub (el de LSP) lo pidieron y creo que
+tienen intención de que se le pueda dar también ese uso. Aunque están
+saliendo plugins para integrar el LSP en Vim y Neovim, para Neovim están
+integrando el LSP de forma nativa. Aun así, [creo que es pronto aún para
+instalarlo](https://jdhao.github.io/2019/11/20/neovim_builtin_lsp_hands_on/).
+
+Para el resaltado de código, existe un proyecto de unificarlo para todos los
+editores, llamado Tree-Sitter, que puede que esté muy bien.
+
+

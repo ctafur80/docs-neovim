@@ -1,0 +1,162 @@
+
+
+
+
+### Actuar sobre varios archivos
+
+Esto lo explican en [la entrada
+correspondiente](https://neovim.io/doc/user/usr_26.html#26.3) en la ayuda
+oficial de Neovim. También, puede consultar [este
+tutorial](https://vi.stackexchange.com/a/2777/22600).
+
+En principio, existen comandos de Ex para poder realizar operaciones sobre
+varios archivos simultáneamente: `bufdo`, para _buffers_, `tabdo`, para
+pestañas (_tabs_) y `windo`, para ventanas. No obstante, Vim y Neovim
+cuentan también con una lista de argumentos (_arguments list_) precisamente
+para operar sobre varios archivos simultáneamente sin modificar lo que
+tenemos abiertos en ese momento. Al igual que los comandos que acabamos de
+exponer, actuar sobre los archivos en la lista de argumentos se hace con
+`argdo`. Puede consultar la lista de argumentos en la ayuda integrada del
+editor, en la entrada `argument-list` (`:h argument-list`).
+
+¿Pero cómo se añaden archivos a la lista de argumentos? En principio, si
+abrimos Vim o Neovim con archivos como argumento, estos estarán, además de
+abiertos como _buffers_, en la lista de argumentos. La lista de argumentos
+hace referencia a los argumentos que se le han pasado al ejecutable de Vim o
+Neovim.
+
+Por ejemplo, se pueden añadir cuando vaya a abrir Neovim:
+
+```
+$ nvim archivo1.md archivo2.md
+```
+
+Una vez abierto, para consultar los archivos que tiene en la lista de
+argumentos basta con
+
+```vim
+:args
+```
+
+En este ejemplo, mostrará que tiene a esos dos archivos, _archivo1.md_ y
+_archivo2.md_. Sin embargo, si lo abre con una carpeta (también llamada
+directorio), por ejemplo,
+
+```
+$ vim dir
+```
+
+en principio tendrá la lista de argumentos vacía. La forma de añadir
+archivos a la lista de argumentos es con
+
+```vim
+:args <archivos>
+```
+
+donde `<archivos>` es una lista de archivos separados por espacios. O podría
+ser una ruta, como, por ejemplo, `**/*.rb` para que añada todos los archivos
+con extensión _.rb_, de forma recursiva, tal y como indica la parte `**/`. O
+podría usar un comando dentro, introduciéndolo entre acentos graves; por
+ejemplo,
+
+```vim
+:args `find . -type f`
+```
+
+que añadiría todos los archivos dentro de esa carpeta; no añadiría carpetas.
+El problema creo que está en que no se pueden expandir los comodines, además
+de que así es más complicado de forma innecesaria.
+
+En cualquier caso, puede buscar del modo fácil usando la recursión. Por
+ejemplo,
+
+```vim
+:args **/*.md
+```
+
+para buscar todos los archivos con la extensión de nombre de archivo _.md_,
+que es la que suelen tener los archivos Markdown.
+
+Para añadir o quitarle archivos a la lista de argumentos, se puede usar
+`:argadd` y `:argdelete`, respectivamente. Así, podrá trabajar sobre una
+lista parcial y no tendrá que añadirlo todo desde cero.
+
+Una vez que tiene la lista de argumentos que desee, deberá usar el comando
+`argdo` seguido de un comando de Vim, para realizar la acción que desee
+sobre dichos archivos. Por ejemplo,
+
+```vim
+:argdo %s/<search>/<replace>/ecg | update
+```
+
+Quizás le interese que no le muestre los errores "_pattern not found_". Para
+eso está la bandera `e` del final. La parte `| update` es para que guarde
+automáticamente los archivos que cambie. En caso de no usarla, puede
+confirmar luego la escritura de todos esos archivos que ha modificado uno
+por uno o, si lo prefiere, de golpe, con `:wall`.
+
+De todos modos, cualquier acción que desee realizar sobre varios archivos
+desde el editor podrá hacerla, alternativamente, desde el _shell_, que
+quizás sería la forma más adecuada. También, puede lanzar desde Vim o Neovim
+un comando del _shell_, poniendo el nombre de este precedido de un signo de
+cierre de exclamación (`!`). Por ejemplo,
+
+```vim
+:!ls
+```
+
+mostraría los contenidos de la carpeta en el _shell_; no los _buffers_
+abierto en el editor.
+
+
+* * * *
+
+
+Lo cierto es que no sé cómo unir los comandos `args` y `vimgrep`. Sí sé cómo
+se unirían `args` y `grep`, siendo este un comando del _shell_. Se hace, tal
+y como se incluyen siempre en Ex los comandos de _shell_: encerrándolos
+entre backticks. Por ejemplo,
+
+```vim
+:args `grep -Rl \.plugin **/*.djot`
+```
+
+Así, se habrán añadido a la lista de argumentos los archivos que hayan
+pasado ese filtro; concretamente, en este ejemplo, los que contienen la
+cadena `.plugin` y que tienen extensión (de nombre de archivo) _.djot_.
+
+Luego, es momento de actuar sobre todos estos. Por ejemplo,
+
+```vim
+argdo %s/\.plugin/.plgn/ecg
+```
+
+Así, se sustituirán las cadenas `.plugin` por `.plgn` en todos los archivos
+de la lista de argumentos. Gracias a la opción `c` del comando de
+sustitución (`s`), nos pedirá una confirmación para cada coincidencia.
+Además, gracias a la opción `g` se podrá tener más de una coincidencia en
+una misma línea. Irá moviéndose por sí solo entre los distintos archivos.
+
+Tras esto, se deberán guardar los cambios en todos y cada uno de los
+archivos que hemos modificado. Es tan sencillo como `:wa`, o `:xa` si desea
+salir también automáticamente tras esto (que sería equivalente a ``waq`).
+
+
+
+* * * *
+
+
+Para realizar una acción sobre todos los elementos de la lista _quickfix_,
+se tiene el comando `:cdo` o `:cfdo`.
+
+<https://www.youtube.com/watch?v=F3ZfdeAWP2Y>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,101 @@
+[
+    {
+        "type": "LoadedResource",
+        "verbosity": "INFO",
+        "for": "./ajustes-pandoc/salida-web/html/elemento-breadcrumbs.html",
+        "from": "./ajustes-pandoc/salida-web/html/elemento-breadcrumbs.html"
+    },
+    {
+        "type": "LoadedResource",
+        "verbosity": "INFO",
+        "for": "./ajustes-pandoc/salida-web/html/etiqueta-final-main.html",
+        "from": "./ajustes-pandoc/salida-web/html/etiqueta-final-main.html"
+    },
+    {
+        "type": "LoadedResource",
+        "verbosity": "INFO",
+        "for": "./ajustes-pandoc/salida-web/html/elemento-nav.html",
+        "from": "./ajustes-pandoc/salida-web/html/elemento-nav.html"
+    },
+    {
+        "type": "LoadedResource",
+        "verbosity": "INFO",
+        "for": "./ajustes-pandoc/salida-web/html/elemento-boton-nav-bar.html",
+        "from": "./ajustes-pandoc/salida-web/html/elemento-boton-nav-bar.html"
+    },
+    {
+        "type": "LoadedResource",
+        "verbosity": "INFO",
+        "for": "./ajustes-pandoc/salida-web/html/carga-breadcrumbs.html",
+        "from": "./ajustes-pandoc/salida-web/html/carga-breadcrumbs.html"
+    },
+    {
+        "type": "LoadedResource",
+        "verbosity": "INFO",
+        "for": "./ajustes-pandoc/salida-web/html/carga-nav-bar.html",
+        "from": "./ajustes-pandoc/salida-web/html/carga-nav-bar.html"
+    },
+    {
+        "type": "LoadedResource",
+        "verbosity": "INFO",
+        "for": "./ajustes-pandoc/salida-web/html/nameref.html",
+        "from": "./ajustes-pandoc/salida-web/html/nameref.html"
+    },
+    {
+        "type": "NoteDefinedButNotUsed",
+        "verbosity": "WARNING",
+        "source": "fuentes/introduccion.mkd",
+        "line": 325,
+        "column": 1,
+        "key": "2"
+    },
+    {
+        "type": "NoteDefinedButNotUsed",
+        "verbosity": "WARNING",
+        "source": "fuentes/introduccion.mkd",
+        "line": 328,
+        "column": 1,
+        "key": "3"
+    },
+    {
+        "type": "NoteDefinedButNotUsed",
+        "verbosity": "WARNING",
+        "source": "fuentes/introduccion.mkd",
+        "line": 335,
+        "column": 1,
+        "key": "4"
+    },
+    {
+        "type": "NoteDefinedButNotUsed",
+        "verbosity": "WARNING",
+        "source": "fuentes/introduccion.mkd",
+        "line": 338,
+        "column": 1,
+        "key": "5"
+    },
+    {
+        "type": "DuplicateNoteReference",
+        "verbosity": "WARNING",
+        "contents": "1",
+        "source": "fuentes/neovim-vs-vscode.mkd",
+        "line": 36,
+        "column": 1
+    },
+    {
+        "type": "RunningFilter",
+        "verbosity": "INFO",
+        "path": "citeproc"
+    },
+    {
+        "type": "LoadedResource",
+        "verbosity": "INFO",
+        "for": "./referencias.yaml",
+        "from": "./referencias.yaml"
+    },
+    {
+        "type": "FilterCompleted",
+        "verbosity": "INFO",
+        "path": "citeproc",
+        "milliseconds": "20"
+    }
+]

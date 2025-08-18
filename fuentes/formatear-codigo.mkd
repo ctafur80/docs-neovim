@@ -1,0 +1,90 @@
+
+
+
+
+### Formatear código
+
+Vim, y, por tanto, también Neovim, cuenta con muchos ajustes a la hora de
+formatear código. Al ser más _hackeable_ o _scriptable_ que los IDEs, se
+pueden especificar hasta un gran detalle el comportamiento en lo que
+respecta al formateado de código.
+
+Por ejemplo, algo que quizás no encuentre en los IDEs es el formateado para
+lenguajes de marcado, como por ejemplo Markdown o reStructuredText.
+
+Por lo que veo, en VSCode estos ajustes [deberá especificarlos en el
+formateador que corresponda][vscode-conf-formateador], que es una
+herramienta externa a VSCode. Además, el formateado se hará, en VSCode,
+lanzándolo usted mismo; al contrario de Vim, que puede hacer que se realice
+sobre la marcha mientras escribe.
+
+[vscode-conf-formateador]: https://stackoverflow.com/a/58246538/7026520
+
+En Vim (y Neovim), los ajustes de formateado se hacen con la variable
+`formatoptions`. Los valores que puede tener esta vienen explicados en [esta
+lista][fo-table]. De forma predeterminada, en Neovim tiene por valor a
+`tcqj`.
+
+[fo-table]: https://neovim.io/doc/user/change.html#fo-table
+
+Personalmente, suelo poner de forma predeterminada, como base, a `cqj` y
+luego voy modificándolo para los distintos lenguajes con autocomandos. Para
+C, tengo `cqj2n`. Para Markdown, `tcqj2n`. Lo que no me gusta es usar la
+opción `a`, que hace constantemente el formateado. Me gusta tener la opción
+de corregir el formateado en ciertas partes "a mano". Quizás lo use si en un
+futuro hay algún formateador de código que contemple todos los aspectos que
+uso TKTK.
+
+En Markdown, antes era un incordio usar la opción de formateado `n`, pero
+ahora creo que lo han corregido. Podía suceder algo como lo siguiente:
+
+```markdown
+El formateado de texto puede ser incorrecto si a final de oración tenemos un
+2. En este caso, en algunos formateadores de código se interpreta como un
+   elemento de una lista numerada, con lo que deja un espacio en el renglón
+   siguiente, así como en los demás que le siguen.
+```
+
+Es decir,el formateador interpretaba ese `2.` como el comienzo de un
+elemento de una lista numerada en Markdown. Creo que ahora el formateador es
+más "inteligente".
+
+Esto es algo que está tratando de corregir el lenguaje Djot. En este, cada
+línea de inicio de un elemento de una lista debe ir en una línea separada
+del elemento anterior.
+
+
+* * * *
+
+
+Otra cosa importante sobre el formateado. La variable `formatprg` establece
+cuál es el _software_ externo a Neovim que se usará para hacer el formateo
+con `gq`.
+
+Un _software_ que puede usarse ahí es la herramienta de Unix `fmt`, por
+ejemplo.
+
+También, es importante que consulte la documentación de la variable
+`formatexpr`.
+
+También, es interesante echar un ojo, para los LMLs, a la variable
+`formatlistpat`.
+
+
+
+* * * *
+
+
+Un _plug-in_ muy moderno sobre el formateado es [Confofm][], [recomendado
+por Alpha Developer][conform-plugin-alpha]. Este permite más versatilidad a
+la hora de seleccionar el formateador para un lenguaje en concreto.
+Personalmente, creo que no me merece mucho la pena instalar un _plug-in_
+para esto.
+
+[Conform]: https://github.com/stevearc/conform.nvim
+[conform-plugin-alpha]: https://www.youtube.com/watch?v=XvGpB-wmOUA
+
+
+
+
+

@@ -1,0 +1,24 @@
+
+
+
+### Línea de estado
+
+Han existido varias extensiones para la línea de estado (_status line_).
+Actualmente, creo que para Neovim la mejor es [LuaLine][]{.plgin}.
+
+[LuaLine]: https://github.com/hoob3rt/lualine.nvim
+
+Para conocer la sintaxis de la línea de estado en Vim, puede consultarlo con
+la ayuda:
+
+```vim
+:help statusline
+```
+
+En cualquier caso, no suelo darle importancia a esta funcionalidad. De
+hecho, actualmente no uso ningún _plug-in_ para la línea de estado, sino que
+la configuro yo mismo. No es tan vistosa y avanzada como la que se puede
+conseguir con algún _plug-in_ pero a mí me sirve perfectamente.
+
+
+

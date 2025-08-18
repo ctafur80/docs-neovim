@@ -1,0 +1,29 @@
+
+
+
+### TeX y sus formatos
+
+Tal y como se explica en la gramática de TeX y LaTeX para Vim, en
+_/usr/local/share/nvim/runtime/syntax/tex.vim_, cuando se tiene un entorno
+_verbatim_ cuyo resaltado se sale de sus límites, se puede usar `%stopzone`
+para forzar la detención. Lo mismo, con los entornos de matemáticas.
+
+Vimtex es la mejor extensión actualmente de Neovim para TeX y sus paquetes
+de macros (como, por ejemplo, LaTeX). No obstante, hay otras basadas en LSP,
+como [Texlab](https://github.com/latex-lsp/texlab).
+
+Al instalar la extensión Vimtex, puede que Neovim le indique una advertencia
+(_warning_) en `:checkhealth`. Se debe a que no tiene `neovim-remote`
+instalado en su sistema. Es muy fácil de instalar.
+
+```
+$ pip3 install neovim-remote
+```
+
+Luego, en su archivo de configuración de Neovim, deberá añadir
+
+```vim
+let g:vimtex_compiler_progname = 'nvr'
+```
+
+

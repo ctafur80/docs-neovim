@@ -1,0 +1,19 @@
+
+
+
+
+En lo que respecta a las fuentes de información, se tiene la documentación
+oficial del proyecto Neovim. En gran parte de las entradas de esta
+documentación, hacen referencias a lo que llaman "el manual", que es el
+tutorial que creó Bram Moolenaar, el creador de Vim. De hecho, muchas de las
+partes están muy bien explicadas en este. Puede enceontrarlo
+[aquí][manual-moolenaar].
+
+[manual-moolenaar]: https://neovim.io/doc/user/usr_toc.html#user-manual
+
+
+
+
+
+
+

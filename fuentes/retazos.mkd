@@ -1,0 +1,37 @@
+
+
+
+### Retazos
+
+Los retazos (_snippets_) son una herramienta algo útil que implementó por
+primera vez el editor TextMate (creado por la empresa Apple) y que
+actualmente usan casi todos los editores e IDEs. Consiste en, a partir de
+cierto rango de entrada de texto en el editor, desencadenar la opción de
+autocompletar. TKTK.
+
+No obstante, aunque durante algún tiempo he usado bastante los retazos,
+ahora considero que es algo que se debe evitar. Creo que, si se usan retazos
+es porque el lenguaje que se está usando es innecesariamente enrevesado.
+Además, considero que no se debe delegar mucho TKTK.
+
+Tradicionalmente, Vim y Neovim no han traído de serie funcionalidades de
+retazos, y, para tenerlos, era necesario recurrir a algún _plug-in_. Esto,
+al parecer, ahora ya no es así, pues ahora [han integrado en el _core_ de
+Neovim la funcionalidad de
+retazos](https://github.com/neovim/neovim/pull/25301). No obstante, se trata
+de una funcionalidad muy básica, por lo que los _power users_ de los retazos
+creo que seguirán usando _plug-ins_ para esta funcionalidad.
+
+El _plug-in_ de retazos más popular en la actualidad en el ecosistema de
+Neovim es [LuaSnip](https://github.com/L3MON4D3/LuaSnip).
+
+Lo cierto es que no soy muy fanático de los retazos, pero parece que hay
+gente que sí les saca mucho partido. Por ejemplo, puede ver el uso que hace
+de estos, usando el _plug-in_ Ultisnips, un chico que [toma apuntes al vuelo
+en LaTeX](https://castel.dev/post/lecture-notes-1/) en sus clases del grado
+universitario de matemáticas.
+
+Hay que decir también que existen cosas que son como los retazos pero
+llevándolos algo más al extremo. Hablo de Emmet, en el editor VSCode.
+
+

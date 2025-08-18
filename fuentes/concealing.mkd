@@ -1,0 +1,22 @@
+
+
+
+### _Concealing_
+
+En cuanto al estilo de programación, no me gusta usar caracteres Unicode en
+el código. Me refiero a los que sean distinto a los caracteres básicos en
+español.
+
+Aunque las herramientas de JavaScript suelan traer normalizadores de Unicode
+(_Unicode normalizers_), prefiero usar como regla de estilo que se use sólo
+caracteres básicos del español; nada de símbolos matemáticos como pi,
+emojis, etc.
+
+Es más, en caso de que tenga que introducir algún símbolo extraño del
+programa, prefiero especificarlo con una secuencia de escape (_escape
+sequence_), como, por ejemplo, `\u00e9` o `\u{E9}`.
+
+Creo que a eso lo llaman _text concealling_. También, recibe otros nombres.
+
+
+

@@ -1,0 +1,37 @@
+
+
+### Buscar
+
+Puede consultar la documentación oficial con `:h /`.
+
+En cuanto a buscar, encontré una [forma de hacerlo muy
+cómoda](https://www.youtube.com/watch?v=kgS2cpGfSio).
+
+Es importante usar `c` para que pida confirmación, `g` para que lo haga de
+forma global, es decir, no solo en la primera instancia. También, si
+deseamos que busque solo la palabra que decimos, y no cuando sea parte de
+una palabra, se encierre entre `\<` y `\>`.
+
+De todos modos, ahora con LSP, ya no es necesario buscar con tanta
+frecuencia.
+
+Si desea buscar o remplazar sobre varios archivos, se debe hacer de un modo
+algo diferente. Debe hacer uso de lo que se conoce como la [lista de
+argumentos][] (_argument list_).
+
+[lista de argumentos]: https://neovim.io/doc/user/editing.html#argument-list
+
+La lista de argumentos se creó básicamente para realizar acciones sobre
+varios archivos simultaneamente. No solo permite buscar y remplazar, sino
+que es mucho más versátil de lo que son, en este sentido, la mayoría de
+editores e IDEs.
+
+No confunda la lista de argumentos con los _buffers_. Todo archivo de la
+lista de argumentos estará también presente en la lsta de _bufers_, a menos
+que los haya eliminado de esta, por ejemplo, con `:bdel` o `:bwipe`. Pero es
+común que las entradas en la lista de _buffers_ no estén presentes en la de
+argumentos.
+
+
+
+

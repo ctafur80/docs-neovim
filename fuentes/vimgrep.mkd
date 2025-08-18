@@ -1,0 +1,33 @@
+
+
+
+### Vimgrep
+
+Neovim trae integrada de serie la herramienta `grep`. Se llama `vimgrep`.
+Como quizás ya sepa, nada le impide usar cualquier _software_ de la línea de
+comandos en Vim. No tiene más que preceder, en el editor Ex, el nombre del
+comando por el signo de cierre de exclamación (`!`). La diferencia está en
+que `vimgrep` está más integrado con el propio Neovim.
+
+Gracias a `vimgrep` y a `find` (me refiero a los comandos de Neovim; no a
+los del _shell_), puede tener algo parecido, sin necesidad de instalar nada,
+a lo que se suele obtener con el _plug-in_ Telescope.
+
+En realidad, el uso de `vimgrep` no es nada complicado, si ya se sabe usar
+`grep`. En cualquier caso, TKTK.
+
+Para buscar algo por `vimgrep`, debe usar el comando
+
+```vim
+:vimgrep <regex> <rutas>
+```
+
+Una vez ejecutado el comando, debajo de la barra de estado aparecerá el
+número de coincidencias. Luego, debe usar el comando `:cope` y se mostrarán
+en una ventana aparte los distintos resultados de las coincidencias. En
+esta, puede ir moviéndose y, para abrir una que desee, pulsar [Intro]{.kbd}.
+
+Como siempre, puede moverse entre ventanas con [Ctrl]{.kbd} + [w]{.kbd} +
+[Ctrl]{.kbd} + [w]{.kbd}.
+
+

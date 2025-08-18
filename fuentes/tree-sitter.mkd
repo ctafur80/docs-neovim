@@ -1,0 +1,179 @@
+
+
+
+### Tree-Sitter
+
+Tal y como hemos comentado en la sección sobre el [resaltado de código][],
+la integración de Tree-Sitter en Neovim es una de las novedades más
+interesantes que tiene respecto a Vim.
+
+Un buen tutorial básico sobre cómo configurar Tree-Sitter en Neovim es [el
+de TJ Devries][tj-tree-sitter-tuto].
+
+[tj-tree-sitter-tuto]: https://www.youtube.com/watch?v=MpnjYb-t12A
+
+Para que sea el propio Neovim el que gestione los parseadores (_parsers_) de
+Tree-Sitter, lo mejor es instalar el _plug-in_
+[`nvim-treesitter`]{.plgin}[], aunque se puede hacer la gestión externa de
+los mismos; por ejemplo, instalándolos con un gestor de _software_ como
+Homebrew o APT.
+
+[`nvim-treesitter`]: https://github.com/nvim-treesitter/nvim-treesitter
+
+La configuración que tengo ahora con este es la siguiente:
+
+```lua
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = { "c", "latex", "lua", "python", "json",
+      "yaml", "vim", "rst", "markdown", "javascript", "rust",
+      "go", "sql", "bash" },
+    sync_install = false,
+    auto_install = true,
+
+    highlight = {
+        enable = true,
+    },
+
+    indent = {
+        enable = true,
+    },
+
+    folding = {
+        enable = true,
+    }
+}
+```
+
+También, se puede especificar `"all"` como valor de `ensure_installed`, pero
+prefiero llevar un control "manual" de los que se instalan. También, si lo
+prefiere, puede optar por dar el valor `"maintained"`, para que instale solo
+los que tienen un mantenimiento activo.
+
+Si usa el gestor de _plug-ins_ Lazy, los parseadores se instalarán bajo la
+carpeta _\~/.local/share/nvim/lazy/nvim-treesitter/parser_. Los ejecutables
+son archivos con extensión _.so_.
+
+Para forzar la actualización de los parseadores, desde Neovim, puede usar el
+comando de Ex `TSUpdate`. También, a la hora de añadir el paquete
+`nvim-treesitter` al gestor de paquetes, puede hacerle que ejecute el
+comando `TSUpdate` cada vez que abra Neovim. En el caso del gestor Lazy, se
+haría así:
+
+```lua
+    {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"},
+```
+
+Si delega la gestión de Tree-Sitter al _plug-in_ `nvim-treesitter`, este
+descargará las gramáticas de Tree-Sitter mediante Node. Por tanto, es un
+requisito tener Node instalado en su sistema si desea usar dicho _plug-in_.
+
+También, la herramienta de línea de comandos `tree-sitter`, se puede
+configurar para especificarle dónde están los parseadores. Podemos
+aprovechar los que descarga Neovim con su _plug-in_. El archivo de
+configuración de `tree-sitter` es _\~/Library/Application
+Support/tree-sitter/config.json_. Personalmente, me gusta cambiar lo
+siguiente en dicho archivo.
+
+```json
+{
+  "parser-directories": [
+    "/Users/ctafur/github",
+    "/Users/ctafur/src",
+    "/Users/ctafur/source",
+    "/Users/ctafur/.local/share/nvim/lazy/nvim-treesitter/parser",
+    "/Users/ctafur/Documents/editores-de-texto/tree-sitter-parsers"
+  ],
+.
+.
+.
+}
+```
+
+Pero no me funciona. Intento parsear algún archivo de código y no lo hace.
+Por ejemplo,
+
+```
+$ tree-sitter parse mario.c
+No language found
+```
+
+aun cuando estoy seguro de que tengo los _parsers_ en las rutas que le
+indiqué.
+
+Otra cosa que creo que tiene Tree-Sitter y que me parece muy interesante es
+que se pueden hacer ajustes de forma local, es decir, para un proyecto. Se
+puede crear el archivo _grammar.json_ bajo la carpeta _src_, en la raíz del
+proyecto.
+
+
+
+---
+
+
+
+Para analizar los nodos de Tree-Sitter desde Neovim, antes se usaba un
+_plug-in_ llamado `tree-sitter-playground`. Ahora, el _plug-in_
+`nvim-treesitter` trae de serie los comandos `Inspect` e `InspectTree`. Este
+último sería el equivalente a `tree-sitter-playground`. El otro muestra solo
+la información del nodo sobre el que se encuentra el cursor.
+
+
+
+---
+
+
+
+Algo de lo que me estoy dando cuenta es de que, aunque desde la llegada de
+Neovim estén proliferando mucho los _plug-ins_, hay ciertos componentes o
+_plug-ins_ básicos gracias a los cuales no se necesitan la mayoría de los
+demás. Es el caso, por ejemplo, de Tree-Sitter, que viene integrado de serie
+con Neovim; aunque es recomendable gestionarlo mediante un _plug-in_, pues
+de lo contrario es complicado. Tree-Sitter nos permite, si lo conocemos un
+poco, hacer selecciones muy inteligentes de partes del código; selecciones
+sobre las que podremos realizar acciones de Vim.
+
+Dicho esto, quizás esté llegando el fin de Neovim y estas dos tecnologías
+(LSP y Tree-Sitter) terminen haciendo que sea irrelevante. Quizás, una vez
+que contemos con esa inteligencia sobre el código que obtenemos a dichas
+tecnologías, no necesitemos tantas cosas como nos proporcionan Vim y Neovim.
+Esto lo digo porque el _plug-in_ `nvim-treesitter-objects` considero que
+indica el futuro de la edición de código. El problema con Vim y Neovim está
+en que no están estandarizadas las combinaciones de teclas para los
+distintos objetos sobre los que actuar. Esto puede hacer también que se
+interfiera con los objetos básicos con los que operan Vim y Neovim. Un
+editor nuevo, como, por ejemplo, Helix, aun siendo bastante más sencillo que
+Vim y Neovim, puede centrarse más en las tecnologías modernas. O quizás lo
+que termine usando la gente sea el modo Vim en otros editores o IDEs.
+
+Bueno, quizás en Vim y Neovim se puedan reconfigurar los viejos y dejar solo
+los que yo le especifique en la configuración de `nvim-treesitter-objects`.
+
+
+---
+
+
+También, aunque haya muchas cosas que se pueden hacer directamente con Vim
+de forma directa, sin necesidad de _plug-ins_, es cierto que las nuevas
+tecnologías que ha adoptado Neovim, como LSP y Tree-Sitter, creo que
+terminarán haciendo que cambie el uso de ciertas partes de Neovim. El mundo
+de los editores ha cambiado y hay que asumirlo. Vim tiene muchas carencias;
+por ejemplo, en el resaltado de sintaxis. Tree-Sitter supone una gran
+evolución a este respecto.
+
+
+---
+
+
+Una muestra de las posibilidades que puede dar Tree-Sitter es que [se está
+usando en un lenguaje de edición oral llamado
+Cursorless](https://www.youtube.com/watch?v=NcUJnmBqHTY).
+
+
+---
+
+
+
+
+
+
+

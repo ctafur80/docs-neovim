@@ -1,0 +1,97 @@
+
+
+### Gestión minimalista de archivos
+
+Aunque durante bastante tiempo he hecho uso del gestor de archivos (_file
+manager_) que trae de serie Neovim, que es Netrw[^netrw-plugin], y
+posteriormente lo sustituí por otros con más funcionalidades y más
+coherencia, como es el _plug-in_ `oil.nvim`, ahora me he pasado a un manejo
+más minimalista y ni siquiera uso ya Netrw. Además de por minimalismo,
+también lo hago porque el gestor de archivos ocupa un _buffer_ y termina
+entorpeciendo un poco el uso que hago de los comandos para moverme rápido
+entre estos.
+
+[^netrw-plugin]: En realidad, Netrw no es una funcionalidad como la mayoría
+  de las que vienen de serie con Neovim, sino que es un _plug-in_, pero uno
+  que viene de serie en este.
+
+Lo primero es indicar cómo se deshabilita Netrw, ya que, de forma
+predeterminada, viene habilitado.
+
+```lua
+vim.g.loaded_netrwPlugin = 0
+```
+
+Básicamente, lo que hago es un mayor uso del comando `:edit`, de Ex; o, más
+bien, su forma abreviada: `:e`. Así es como me muevo y voy progresando por
+el sistema de archivos. Esto lo hago junto con la tecla tabuladora para ir
+autocompletando. Por ejemplo, `:e lu`. Pulso [Tab]{.kbd} para que
+autocomplete. Entonces, se rellena hasta `:e lua/`. Ahora, para seguir
+progresando dentro de dicha carpeta, pongo un asterisco, `:e lua/*` y luego
+pulso otra vez [Tab]{.kbd}, y me sigue mostrando las opciones.
+
+Luego, para ir para atrás, con [Ctrl]{.kbd} + [w]{.kbd} vamos eliminando
+rápidamente las partes del sistema de archivos que se han autocompletado.
+
+Algo que también se debería tener en cuenta es que, por comodidad, quizás le
+interese abrir _buffers_ de todos los archivos en una carpeta, o los que
+sean de cierto tipo dentro de la misma, haciendo uso de comodines
+(_wildcards_). Si intenta abrirlos con el comando `:edit`, por ejemplo, con
+algo como `:e after/ftplugins/*.lua`, no le dejará hacerlo y le mostrará un
+error. Deberá usar, en su lugar, el comando `:next`. En este ejemplo, `:next
+after/ftplugins/*.lua`. En cualquier caso, tampoco es algo que se
+recomiende. Quizás sea mejor ir abriéndolos uno a uno. Otra cosa sería que
+desease realizar una acción, de un solo golpe, sobre muchos archivos, cosa
+que se haría con la lista de argumentos de Neovim.
+
+A la hora de eliminar esos _buffers_, la forma sería con `:bdelete
+after/ftplugins/*.lua`, pero, si pulsa [Intro]{.kbs} ahí, tampoco le dejará.
+En su lugar, lo que debe hacer es expandir el comodín (_wildcard_) para que
+se expanda la expresión y se pongan todas. Esto se hace con el atajo de
+teclado [Ctrl]{.kbd} + [a]{.kbd}.
+
+También, en lugar de añadir una secuencia de dos asteriscos (`**`) a la
+variable `path`, creo que es mejor ir añadiendo las carpetas que deseemos o
+eliminándolas, tal y [como explican
+aquí](https://www.reddit.com/r/vim/comments/8mi8cm/is_using_in_path_a_good_idea/).
+Por ejemplo,
+
+```vim
+set path+=lua
+```
+
+o, si prefiere con Lua,
+
+```lua
+:lua vim.opt.path:append "lua"
+```
+
+solo que esta última forma lleva más trabajo.
+
+No solo serviría para usar el comando `:find`, sino que también vendría bien
+para hacer más cómoda la selección de ciertas partes. TKTK.
+
+También, se puede ir moviendo usando el comando `cd`, pero el de Neovim; no
+el del _shell_. Así, irá centrándose en las distintas carpetas y, cuando lo
+desee, pasar al directorio principal.
+
+Por ejemplo, puede usar el comando `:edit` para ver lo que hay y, si quiere
+centrarse en una carpeta en concreto, con [Esc]{.kbd} sale sin terminar de
+seleccionar una ruta y pasa a seleccionarla con `:cd`.
+
+También, voy haciendo uso de las ventanas del terminal para que así tenga
+ordenado de forma lógica TKTK. Dentro de una misma área temática, que, como
+digo, corresponde a una misma ventana, hago las divisiones en etiquetas
+(_tags_) de terminal.
+
+Con la combinación de teclas [Cmd]{.kbd} + [Shift]{.kbd} + [i]{.kbd}, en el
+terminal predeterminado de macOS, nos permite renombrar los títulos de las
+ventanas (bueno, en realidad, de las pestañas de estas TKTK). Conviene
+también modificar el perfil (_profile_) en concreto. En la pestaña _Window_,
+para que no muestre de forma automática el comando.
+
+Tengo que investigar cómo se crean perfiles y cómo se pueden usar.
+
+
+
+

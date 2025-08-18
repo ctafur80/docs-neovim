@@ -1,0 +1,45 @@
+
+
+
+
+### Autocompletado copiando texto
+
+Una funcionalidad muy útil que le puede hacer muy cómoda la edición es que
+el autocompletado tiene varios modos. En concreto, uno de ellos es el
+autocompletado copiando texto del mismo archivo. Esto se explica en la
+entrada `ins-completion`, en la ayuda oficial.
+
+Veamos cómo funciona. Suponga que tiene un archivo abierto en una ventana
+del editor y en dicho archivo hay un renglón como el siguiente:
+
+```
+... es bueno tomar pausas pequeñas durante el aprendizaje
+```
+
+Entonces, para escribir eso mismo en otra parte del archivo, comenzamos
+escribiendo lo mismo (evidentemente, en modo insert):
+
+```
+es buen
+```
+
+entonces, hacemos el autocompletado de la palabra, como estamos
+acostumbrados: [Ctrl]{.kbd} + [n]{.kbd} (también, valdría [Ctrl]{.kbd} +
+[p]{.kbd}, para el sentido opuesto). Seleccionamos así, de entre las
+opciones que aparezcan, la adecuada; en este caso, `bueno`. Ahora, no le
+damos a que lo inserte, sino que inmediatamente después usamos la
+combinación [Ctrl]{.kbd} + [f]{.kbd} [Ctrl]{.kbd} + [p]{.kbd}. Así, nos
+aparecerá como opción de autocompletado una cadena de dos palabras; en este
+caso, `bueno tomar`. Vamos repitiendo sucesivamente esta última combinación
+([Ctrl]{.kbd} + [f]{.kbd} [Ctrl]{.kbd} + [p]{.kbd}) y vamos completando la
+cadena tal y como estaba antes. Creo que puede ser [n]{.kbd} en lugar de
+[p]{.kbd}, a partir de cierto punto. Esto irá copiando el mismo texto.
+
+Puede suceder que tengamos dos cadenas que comienzan igual pero a partir de
+cierto punto son diferentes. En dicho caso, tendremos que operar como antes
+pero con cautela para seleccionar, en el momento en el que se hacen
+diferentes, la que deseamos.
+
+Creo que no funciona cuando hay algún símbolo extraño, como un _backtick_.
+
+

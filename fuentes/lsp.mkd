@@ -1,0 +1,275 @@
+
+
+
+### LSP
+
+Language Server Protocol, más conocido por sus siglas LSP, es un estándar
+abierto creado por Microsoft para suministrar las funcionalidades típicas de
+los IDEs como autocompletado de código, resaltado semántico, etc. Antes de
+nada, me gustaría advertir de que hay quien cree (por ejemplo, David
+Heinemeier Hansson, el creador del _framework_ Ruby on Rails) que
+automatizar en exceso la escritura de código, ya sea mediante _snippets_,
+herramientas de AI, etc., le convierte en un programador más torpe y
+conducirá necesariamente a que cree _software_ de menor calidad.
+
+Volviendo a LSP, lo que le diferencia de otras tecnologías de este tipo con
+las que han contado los IDEs desde hace bastantes años ya está en que, por
+un lado LSP es una tecnología abierta, y, por otro, que es una tecnología de
+tipo cliente-servidor[^Para Jonathan Blow es un aberración usar servicios
+para un _software_ con este propósito.], gracias a lo cual puede ser
+universal. Es decir, lo único que requieren los editores o IDEs es un
+cliente de LSP. Luego, en el sistema se deben instalar los servidores LSP de
+los distintos lenguajes que se desee usar y estos servirían para todos los
+editores o IDEs con un cliente de LSP.
+
+Al ser así, se evita tener que reimplementar las funcionalidades LSP de un
+lenguaje en concreto para los distintos editores o IDEs. En la web oficial
+del proyecto puede encontrar una lista de los principales servidores LSP.
+Por cierto, puede que encuentre más de uno para un mismo lenguaje. Hay quien
+usa más de uno para un mismo lenguaje, pues puede que sean complementarios;
+cada uno especializado en ciertos aspectos. Es lo que sucede, por ejemplo,
+con los servidores LSP de Python TKTK.
+
+Actualmente, los principales editores e IDEs de código abierto cuentan con
+clientes LSP; por ejemplo, Neovim, VSCode, Emacs, etc.
+
+Aunque Neovim viene con soporte de LSP de serie desde la versión 0.5, casi
+todo el mundo usaba algún _plug-in_ como [`nvim-lspconfig`][]{.plgin}, pues
+no era trivial hacer una configuración a este respecto directamente en la
+configuración de Neovim. A partir de la versión 0.11 se puede afirmar que es
+sencillo hacer uso de LSP en Neovim sin uso de _plug-ins_.
+
+[`nvim-lspconfig`]: https://github.com/neovim/nvim-lspconfig
+
+En cualquier caso, el _plug-in_ [`nvim-lspconfig`][]{.plgin} puede que le
+venga bien por comodidad ya que le ofrece una interfaz desde la que puede
+gestionar de forma unificada los distintos LSPs; es decir, no tiene por qué
+ir "batallando" con las particularidades de cada uno: qué comando se usa
+para uno en concreto, qué _root markers_ especificar para tal lenguaje, etc.
+Además, si se fija, se trata de un _plug-in_ creado por el propio proyecto
+Neovim, con lo que cuenta con la confianza de que estará bien hecho. TKTK.
+
+Lo que no hace [`nvim-lspconfig`][]{.plgin} es instalarle o actualizarle los
+servidores LSP. Estos los puede instalar mediante algún gestor de _software_
+de su sistema, como Homebrew o APT; o incluso instalarlo por usted mismo
+desde el código fuente (es decir, sin un paquete precompilado). Si desea que
+sea el propio Neovim el que se encargue de instalarlos y gestionarlos, puede
+usar el _plug-in_ _plug-in_ [Mason][]{.plgin}.
+
+[Mason]: https://github.com/mason-org/mason.nvim
+
+También se puede configurar el autocompletado en Neovim, incluyendo las
+funcionalidades de LSP en este, sin necesidad de _plug-ins_. Si prefiere
+hacerlo con algún _plug-in_, creo que actualmente el mejor para esto es
+[`blink.cmp`][]{.plgin}.
+
+[`blink.cmp`]: https://github.com/Saghen/blink.cmp
+
+Puede ver [este tutorial][lsp-moderno-plugins-tuto] sobre cómo se haría una
+configuración moderna de LSP en Neovim, aunque sí que usa algunos
+_plug-ins_.
+
+[lsp-moderno-plugins-tuto]: https://www.reddit.com/r/neovim/comments/1merz97/hands_down_the_easiest_lsp_setup_for_neovim_012/
+
+
+
+<!-- Algunos servidores LSP proporcionan _snippets_, pero no todos. -->
+
+
+Con el comando `:LspInfo` puede consultar los clientes LSP que se encuentran
+activos (_active_) en el propio Neovim (el el proceso). Algunos estarán
+ligados (_attached_) a algún o algunos _buffers_ y otros no (_detached_). A
+este respecto, existen los eventos `LspAttach` y `LspDetach`.
+
+Por ejemplo, es muy típico crear un autocomando para lanzar el formateado de
+código en el evento `LspDetach` (vea `:help LspDetach`).
+
+
+Popr ejemplo, con
+
+```vim
+:lua vim.lsp.buf_attach_client(0, 1)
+```
+
+ligaríamos el cliente LSP 1 al _buffer_ en el que nos encontramos. El id del
+cliente LSP se puede ver con `LspInfo`. De forma análoga se puede hacer
+_detach_.
+
+
+
+
+
+
+---
+
+Autocompletado de LSP
+
+Se puede consultar en la documentación oficial de Neovim con `:help
+lsp-autocompletion`.
+
+En principio, si no se ha modificado nada, el autocompletado se lanza con
+[Ctrl]{.kbd} + [x]{.kbd} [Ctrl]{.kbd} + [o]{.kbd} en el modo _insert_. Esto
+creo que es lo que en Vim llaman _omni completion_.
+
+Además del autocompletado básico, si lo configura, puede tener también
+autocompletado del servidor LSP que corresponda con ese _buffer_ en
+particular.
+
+
+
+
+
+
+Se puede crear un autocomando del evento `LspAttach` para habilitar
+(_enable_) el autocompletado LSP.
+
+<https://www.youtube.com/watch?v=tnlgQFQi2s4>
+
+```lua
+-- Enables LSP completion <https://www.youtube.com/watch?v=tnlgQFQi2s4>
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("my.lsp", {}),
+    callback = function(args)
+        local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
+        if client:supports_method("textDocument/completion") then
+            vim.lsp.completion.enable(true, client.id, args.buf, {autotrigger = true})
+        end
+    end
+})
+
+vim.cmd("set completeopt+=noselect")
+```
+
+El ajuste que aparece al final hace que no se seleccione automáticamente,
+cosa que opino que nos entorpece bastante al editar. Para moverse por el
+menú desplegable con las distintas posibilidades de autocompletado puede
+usar [Ctrl]{.kbd} + [n]{.kbd} y [Ctrl]{.kbd} + [p]{.kbd}, o con las flechar
+arriba y abajo, si lo prefiere.
+
+Al moverse por estas, sí se seleccionará en la que se encuentre, aunque no
+de forma acumulativa. Otra forma de que se añada al _buffer_ uno de estos
+posibles autocompletados del menú desplegable es con la combinación
+[Ctrl]{.kbd} + [y]{.kbd}.
+
+
+
+
+---
+
+_inlay hints_
+
+
+
+
+
+---
+
+
+
+
+
+La buena noticia es que esto está comenzando ya a cambiar; sobretodo, desde
+la versión 0.11. Ahora resulta más cómodo hacer la gestión de LSP por uno
+mismo en Neovim. Una explicación bastante buena está en [un
+artículo][anders-configurar-lsp] del blog de Gregory Anders.
+
+[anders-configurar-lsp]: https://gpanders.com/blog/whats-new-in-neovim-0-11/
+
+He visto que en YouTube también hay algunos tutoriales a este respecto, como
+[el de TJ DeVries][devries-tuto-lsp], que no está mal.
+
+[devries-tuto-lsp]: https://www.youtube.com/watch?v=bTWWFQZqzyI
+
+Veamos lo básico sobre cómo se configuraría sin _plug-ins_. El _framework_
+de Lua para la gestión de LSP es `vim.lsp`. Por ejemplo, para configurar de
+forma directa la comunicación de Neovim con el servidor LSP de Python
+`ruff`, se podría añadir lo siguiente a la configuración:
+
+```lua
+vim.lsp.start({
+    name = "python-ruff",
+    cmd = { "ruff", "server" },
+    root_dir = vim.fs.dirname(
+        vim.fs.find({ "setup.py", "pyproject.toml", ".git" }, { upward = true })[1]
+    ),
+```
+
+Puede consultar `:help vim.lsp.start` para aprender el comportamiento de
+dicha función.
+
+Tiene que averiguar cuál es el comando con el que se arranca ese servidor
+LSP en concreto. En este ejemplo, es `ruff server`. Para cada servidor LSP
+puede ser diferente.
+
+Por cierto, como es evidente, al contrario de lo que sucede con los
+_plug-ins_ de LSP, al hacer la gestión de forma directa (es decir, sin uso
+de _plug-ins_), deberá instalar por usted mismo el servidor LSP en su
+sistema. Es fácil: se suele encontrar en los principales gestores de
+instalación, como Homebrew, APT, Nix, etc.
+
+Lo normal es introducir esa orden de inicio del servidor LSP en un
+autocomando, para que se lance únicamente cuando sea necesario. Así, mejor
+que lo anterior, sería
+
+```lua
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "python",
+    callback = function()
+        vim.lsp.start({
+            name = "python-ruff",
+            cmd = { "ruff", "server" },
+            root_dir = vim.fs.dirname(
+                vim.fs.find({ "setup.py", "pyproject.toml", ".git" }, { upward = true })[1]
+            ),
+        })
+    end
+})
+```
+
+**Nota sobre Neovim 0.12**: En la versión 0.12 se introducirá la función `vim.lsp.server()`,
+que simplificará aún más la configuración de servidores LSP. Esta función estará
+diseñada para reducir la cantidad de código repetitivo y ofrecer una forma más
+declarativa y sencilla de registrar configuraciones de servidores, basándose en
+las configuraciones ya conocidas por la comunidad (similar a como lo hace `nvim-lspconfig`,
+pero de forma nativa).
+
+Para comprobar si está todo configurado correctamente, use el comando
+`:checkhealth lsp`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+
+`:K` muestra la documentación sobre el token en el que se encuentra el
+cursor.
+
+
+
+
+[Ctrl]{.kbd} + [o]{.kbd} salta hacia atrás en el historial de posiciones del
+cursor.
+
+
+
+
+
+
+
+
+
+
+
+
+

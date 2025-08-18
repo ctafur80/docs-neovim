@@ -1,0 +1,68 @@
+
+# Novedades en Neovim 0.12
+
+La versión 0.12 de Neovim, aunque todavía en desarrollo, se perfila como un
+lanzamiento fundamental bajo el lema "El año de Nvim Out of the Box (OOTB)".
+El objetivo es mejorar significativamente la experiencia de usuario desde el
+primer momento, preparando el terreno para la futura versión 1.0.
+
+A continuación, se describen algunas de las características y mejoras más
+esperadas.
+
+
+
+
+## Gestor de _plug-ins_ nativo
+
+Una de las adiciones más anticipadas es un gestor de _plug-ins_ integrado en
+el propio Neovim. Esto podría simplificar enormemente la instalación y
+gestión de _plug-ins_, eliminando la necesidad de gestores de terceros, como
+lazy.nvim, para configuraciones sencillas.
+
+
+
+
+## Mejoras en la asincronía: `vim.async`
+
+Se introducirá una nueva abstracción para tareas asíncronas con `vim.async`.
+Esto proporcionará una base más sólida y estructurada para la concurrencia,
+permitiendo que los _plug-ins_ y la propia configuración manejen operaciones
+en segundo plano de forma más eficiente y robusta.
+
+
+
+
+## Mejoras en la Interfaz de Usuario (UI)
+
+Se planean varias mejoras en la interacción con la interfaz de usuario:
+
+- **Comando `:restart`**: Permitirá reiniciar el servidor de Neovim sin
+  necesidad de cerrar y reabrir el cliente. Esto facilitará la aplicación de
+  cambios en la configuración de manera casi instantánea.
+
+- **Eliminación del mensaje "Press ENTER"**: Se buscará reducir las
+  interrupciones que pausan el flujo de trabajo y requieren que el usuario
+  presione la tecla [Enter]{.kbd} para continuar.
+
+
+
+
+## API para imágenes
+
+Se está desarrollando una nueva API estándar para manejar y mostrar imágenes
+directamente en los _buffers_ de Neovim, abriendo la puerta a nuevas
+funcionalidades en visores de archivos, previsualizaciones y otros
+_plug-ins_.
+
+
+
+## Multicursor y supermacros
+
+Se esperan mejoras en la funcionalidad de multicursor nativa y en el sistema
+de macros, permitiendo ediciones complejas de manera más fluida e intuitiva.
+
+
+
+
+
+

@@ -1,0 +1,68 @@
+
+
+
+### Espaciado americano
+
+Existe una sutileza que hay quien trata de seguir cuando compone sus textos.
+Es el espaciado tras símbolos de final de oración (_sentence_): punto (`.`),
+cierre de exclamación (`!`)[^signos-admiracion] y cierre de interrogación
+(`?`). Las dos opciones que existen son:
+
+<!-- También, puntos suspensivos? TKTK -->
+
+[^signos-admiracion]: Aunque muchas veces a los símbolos de exclamación ("¡"
+  y "!") los llamen _signos de admiración_, creo que es una designación
+  desacertada.
+
+  - _Espaciado americano_ --- El espacio tras ese símbolo de final de
+    oración aparece con mayor anchura.
+  - _Espaciado francés_ --- Es igual a los demás espacios.
+
+Esto en realidad es algo que se ve en el texto final producido. En
+principio, no afectaría al editor de textos, aunque también es cierto que a
+veces en texto plano se dejan dos espacios para indicar la separación de las
+oraciones. En el editor de textos, si usa un lenguaje para componer el
+documento de texto, como, por ejemplo, LaTeX o Markdown, existen formas de
+indicar el espacio de fin de oración, pero no nos interesan aquí.
+
+Por cierto, aunque una de las modalidades sea la americana, en realidad en
+América no se suele usar muy a menudo. Lo que más se suele usar ahora en
+todo el mundo es el espaciado francés. El espaciado americano creo que se
+encuentra con frecuencia en escritos antiguos.
+
+En LaTeX, un punto en el cuerpo de texto normal se corresponderá con un
+punto de fin de oración, salvo si la letra anterior al punto es mayúscula,
+en cuyo caso la interpretaría como una simple abreviatura. Sin embargo, si
+quiere indicar que un punto es un punto de una abreviatura y no es fin de
+oración, debe anteponerle el signo de arroba, `@`. Por ejemplo, `Mr@.
+nombre`. En Markdown, aunque en realidad dependerá de la variante en
+concreto de este, lo que se suele hacer es dejar dos espacios tras el punto
+si quiere que sea de fin de oración. Evidentemente, también indica punto de
+fin de oración el punto al final de un párrafo.
+
+En mi caso, intenté durante un tiempo usar el espaciado americano, pues
+proporciona más información al texto de forma más puramente visual y, por
+tanto, más rápida. Al final, desistí, pues, entre otras cosas, no es
+compatible con el _hard-wrapping_ (buscar fuente TKTK). Además, tampoco
+parece que sea algo que se note en la lengua hablada. TKTK.
+
+Existe una variable de Vim, llamada `joinspaces`, que, si está activada,
+mantiene de forma subyacente la información de los dos espacios (espaciado
+americano) al pasar un párrafo de _soft-wrapped_ a _hard-wrapped_, aunque en
+algunos casos no muestre los dos espacios, como, por ejemplo, cuando el
+punto está al final de un renglón. Esto es algo que no me gusta y es
+principalmente lo que me hizo dejar de usar el espaciado americano.
+
+Al usar el espaciado francés, intento no usar abreviaturas de forma directa,
+para que los puntos suelan ser de final de oración. Lo que suelo hacer es
+usar la directiva de reStructuredText para reemplazar texto.
+
+Aun así, no deja de parecerme mejor el espaciado americano, y estaría
+dispuesto a usarlo si encontrara una solución a su uso con _hard-wrapping_.
+En el caso de espaciado francés, no se distingue tan fácilmente el espacio
+de separación de párrafo, pues es igual que el de una abreviatura (por
+ejemplo, `a.k.a. nombre`).
+
+
+
+

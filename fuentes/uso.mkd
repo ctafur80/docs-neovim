@@ -1,0 +1,39 @@
+
+
+
+### Uso
+
+Algo que me llamó la atención es que, cuando uno ve a alguien en algún
+videotutorial usando Vim o Neovim a un nivel avanzado, casi siempre se le ve
+usando algo para moverse rápidamente entre los archivos del proyecto. Mucha
+gente usa _plug-ins_, como [Telescope][], que implementan esta funcionalidad
+muy bien. Aun así, Vim y Neovim traen ya de serie ciertas funcionalidades de
+este tipo sin necesidad de instalar extensiones.
+
+[Telescope]: https://github.com/nvim-telescope/telescope.nvim
+
+Por ejemplo, viene muy bien el comando `:find`, para abrir en un _buffer_ y
+una ventana algún o algunos archivos, según la expresión regular que
+especifique. Para sacar mayor provecho a dicho comando y usarlo de forma más
+cómoda, hay quien añade el valor `**` a la opción `path` en el editor. Esa
+configuración se puede especificar en Vimscript o en Lua, como casi todo. En
+Vimscript, sería
+
+```vim
+set path+=**
+```
+
+mientras que, en Lua,
+
+```lua
+vim.opt.path = vim.opt.path + "**"
+```
+
+De todos modos, yo no modifico de forma global la variable `path`. Si deseo
+hacerlo para algún caso concreto, lo hago manualmente.
+
+Otras formas de moverse en Neovim, sin hacer uso de algún _plug-in_, es
+mediante el comando `vimgrep`. TKTK.
+
+
+

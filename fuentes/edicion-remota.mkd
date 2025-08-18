@@ -1,0 +1,36 @@
+
+
+
+### Edición remota
+
+Se puede hacer de varias formas. Por ejemplo, podríamos mapear un directorio
+de la máquina remota en nuestro sistema. Así, podríamos editar "localmente"
+los archivos en el directorio. El problema es que tendríamos que tener
+también abierta una sesión remota de _shell_ (típicamente, con SSH), para
+introducir comandos en la máquina remota; por ejemplo, para compilar o para
+otras cosas.
+
+Existe también de hacer en Vim una edición remota más propiamente dicha,
+parecida a lo que se consigue con el modo Tramp en Emacs o con la edición
+remota de VSCode. Encontré una [explicación de cómo
+configurarlo][ed-remota-explicacion]. Lo cierto es que no me termina de
+convencer. Sigue siendo un incordio si se compara con la edición remota de
+VSCode.
+
+[ed-remota-explicacion]: https://stackoverflow.com/a/601684/7026520
+
+Hay que tener en cuenta también una cosa con respecto a la edición remota.
+¿Para qué se hace? En principio, imagino que para no sobrecargar el sistema
+y por razones de seguridad: es aconsejable instalar la menor cantidad
+posible de _software_ en un servidor para limitar la superficie de ataque.
+Pues bien, con la edición remota, nos estamos saltando esto en cierto modo,
+pues, al estar editando en nuestra máquina personal, es como si hubiésemos
+instalado ese mismo _software_ de edición en el servidor. Por esto creo que
+es mejor tener una configuración básica de Vim y Bash en algún repositorio
+de GitHub y usar Vim directamente en la máquina remota con esa
+configuración. Aunque, bueno, pensándolo bien, Vim y Neovim como _software_
+se trata de proyectos algo complejos, con lo que también podrían tener
+vulnerabilidades.
+
+
+

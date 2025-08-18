@@ -1,0 +1,115 @@
+
+
+
+### _Word wrapping_
+
+Con _wrapping_ nos referimos a el cambio de renglón (también llamado
+_línea_, _row_) en un párrafo, cuando se trata de comentarios de código o de
+texto en algún lenguaje de documentación. También, se puede considerar
+_wrapping_ a la disposición en líneas distintas en código.
+
+Dentro del _wrapping_, se tienen dos modalidades:
+
+ - _hard-wrapped_ --- cuando se cambia realmente de renglón. En este caso,
+   se puede comprobar que los números de línea son distintos en cada línea
+   del texto sobre el que se ha realizado ese ajuste.
+
+ - _soft-wrapped_ --- cuando ese ajuste de texto y esos cambios de renglón
+   se hacen solo de forma aparente. Lo normal es que ese ajuste se adapte al
+   _viewport_. TKTK. En realidad, todo el texto que se ajusta así, se
+   encuentra en el mismo renglón, cosa que puede comprobar si muestra los
+   números de línea en el editor: todas esas líneas serán en realidad la
+   misma.
+
+El _hard-wrapping_ se podría decir que es una de las varias funcionalidades
+que se hacen en el formateado de código (_code formatting_). Y de hecho hay
+muchas herramientas de formateado de código en las que se puede especificar
+como parámetro cómo desea que se realice automáticamente el _hard-wrapping_.
+Es el caso, por ejemplo, de la herramienta Prettier, para diversos lenguajes
+de la web, como HTML, JavaScript y Markdown.
+
+Los editores e IDEs enfocados en interfaces GUI no suelen traer de serie la
+opción de hacer _hard-wrapping_, mientras que los que tradicionalmente han
+sido de terminal, como Vim y Emacs, sí lo traen. Los primeros, entonces, la
+única forma de tenerlo es integrarlo mediante alguna extensión o por medio
+de alguna herramienta formateadora de código, como Prettier, antes
+mencionada.
+
+En Neovim, para hacer ajuste de texto con _hard-wrapping_, puede usar, en
+modo normal, la secuencia [g]{.kbd} [q]{.kbd} [i]{.kbd} [p]{.kbd}, que lo
+hará para todo el párrafo de texto en el que se encuentre el cursor. Puede
+usar otras variantes con ese mismo prefijo, [g]{.kbd} [q]{.kbd}. Por
+ejemplo, [g]{.kbd} [q]{.kbd} [\}]{.kbd} hará el formateo desde la posición
+del cursor hasta la primera línea en blanco que encuentre.
+
+Debe tener cuidado con no confundir el _hard-wrapping_ con el formateo de
+código, ya que no son exactamente lo mismo. El formateo se puede hacer con
+la tecla [=]{.kbd} (signo _igual_), en modo normal. TKTK.
+
+<!--
+También, puede crear un macro que lo haga automáticamente, que es lo mejor,
+pues, si ha editado un párrafo en un editor que no es Vim (o Neovim), no le
+valdrá con las opciones que acabo de exponer. Este macro debería pasar a un
+solo renglón todo el párrafo (con ayuda de [Shift]{.kbd} + [j]{.kbd}) y
+luego, con [g]{.kbd} [q]{.kbd} [q]{.kbd}, se pasaría a ajustarse con
+_hard-wrapping_.
+-->
+
+Es cierto que he tenido algún problema al ajustar texto cuando tengo texto
+que no es continuo y lo pego en un archivo que edito con Vim. Lo cierto es
+que no llego a entender del todo el _text wrapping_ con Vim; tengo que
+ponerme con eso algún día.
+
+Lo mejor sería consultar esta cuestión [en la ayuda de
+Neovim](https://neovim.io/doc/user/usr_25.html).
+
+El parámetro `wrap` le dice a Vim que haga el _wrap_, es decir, la
+separación de palabra al final de renglón, de forma visual únicamente, es
+decir, que haga _soft-wrapping_. `linebreak` le dice que solo haga el _wrap_
+en los caracteres que se le especifican en la opción `breakat`. De forma
+predeterminada, se tiene con el valor siguiente:
+
+```vim
+breakat= ^I!@*-+;:,./?
+```
+
+donde `^I` indica el carácter tabulación. Advierta que el espacio también
+está, al principio.
+
+Es algo complicado. [Aquí](https://stackoverflow.com/a/26015800/7026520)
+explican cómo se hace para que aparezca un símbolo en las líneas de
+continuación de un _soft-wrapping_. En concreto, serviría con algo así:
+
+```vim
+" enable indentation
+set breakindent
+
+" indent by an additional 2 characters on wrapped lines, when line >= 40
+" characters, put 'showbreak' at start of line
+set breakindentopt=shift:2,min:40,sbr
+
+" append '⤷' to indent
+set showbreak=⤷
+```
+
+Para una configuración en Lua, sería lo siguiente:
+
+```lua
+-- Highlights soft wrapping so that I can unset numbering lines. Indents by
+-- 2 additional characters on wrapped lines; when line >= 40 characters puts
+-- the showbreak symbol at the left.
+vim.opt.breakindent = true
+vim.opt.breakindentopt = "shift:2,min:40,sbr"
+vim.opt.showbreak = "⤷"
+```
+
+Me di cuenta de que no me gustaba el color en el que aparecía ese símbolo.
+Creo que [aquí](https://stackoverflow.com/a/8079170/7026520) explican cómo
+se cambia ese color.
+
+De este modo, me puedo deshacer de los números de línea, pues los veo
+innecesarios. Si quiero orientarme en el documento, lo miraré en la línea de
+estado.
+
+
+

@@ -1,0 +1,41 @@
+
+
+
+### Macros
+
+Los macros son una herramienta muy útil que trae Vim de forma
+predeterminada, es decir, no necesitará instalar una extensión para poder
+usarlos.
+
+Para crear un macro, deberá, en modo normal, pulsar [q]{.kbd} seguida de una
+letra que identifique al macro, , pulsaría [q]{.kbd} [Y]{.kbd}, donde aquí
+[Y]{.kbd} indica la letra identificativa de un macro, que puede ser
+cualquiera de las letras del alfabeto internacional (en español, se excluye
+la _ñ_). Imagino que la letra _q_ también está excluida, al ser la que se
+usa para iniciar y terminar el macro. Verá que, en la esquina inferior
+izquierda de Vim, se le mostrará un mensaje indicando que se está grabando
+un macro. Por ejemplo, si está creando un macro con identificativo `e`,
+pondría `recording @e`.
+
+Todo lo que haga ahora se guardará como parte del macro: cualquier
+movimiento, eliminación de texto, añadir texto, etc. Dentro de la grabación
+del macro, puede entrar y salir de los distintos modos sin preocuparse:
+puede pasar a modo _insert_, a _normal_, a _visual block_, etc. Para
+terminar la grabación, basta con que pulse [q]{.kbd} de nuevo en modo
+_normal_. Esa es una limitación, por tanto: no podrá introducir [q]{.kbd} en
+modo normal durante la grabación del macro, a menos que desee parar la
+grabación. De todos modos, creo que [q]{.kbd}, por esta razón, está
+reservado solo para el inicio y fin de macro en Vim. Es decir, no tiene
+otras funciones en el modo _normal_ de Vim.
+
+Una ver hecha la grabación del macro, para repetir la edición que realizó
+durante la grabación ---aunque en otra parte del texto; ahí está la gracia
+de usar un macro---, deberá introducir, en modo normal, arroba y luego el
+designador del macro. Por ejemplo, para el macro `e`, sería [@]{.kbd}
+[e]{.kbd} (`@e`).
+
+En total, se pueden tener 26 macros: designados de la `A` a la `Z` del
+alfabeto internacional (por lo tanto, no se puede designar por `Ñ` a
+ninguno). En realidad, hay más, pero para propósitos especiales.
+
+

@@ -1,0 +1,29 @@
+
+
+
+
+### Configuración específica según el lenguaje
+
+Para conseguir cambiar el comportamiento de Neovim haciendo ajustes
+dependientes del lenguaje en cuestión para el que está editando, no le queda
+otra que hacer uso de los [autocomandos][]. Estos son algo complicados en
+una primera aproximación, pero, una vez que aprenda a crear sus propios
+autocomandos, podrá crear configuraciones muy versátiles y que le
+proporcionen una gestión muy cómoda de Neovim.
+
+Se podría decir que un autocomando es un conjunto de ajustes que se activan
+tras cierto evento[^evento] (_event_). Existen muchos tipos de eventos,
+como, por ejemplo, abrir un archivo con un _buffer_, cerrarlo, etc.
+
+[^evento]: También se podría decir _suceso_.
+
+Puede servirle como ejemplo, [esta
+explicación][tutorial-ajustes-por-lenguaje].
+
+[tutorial-ajustes-por-lenguaje]: https://blog.lourenci.com/how-to-wrap-long-lines-when-writing-markdown-on-vim/#disqus_thread
+
+
+
+
+
+

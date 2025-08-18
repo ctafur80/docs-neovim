@@ -1,0 +1,20 @@
+
+
+
+### DAP
+
+El DAP es como la funcionalidad que se tiene en los IDEs para hacer un
+seguimiento de los valores de las variables en tiempo de ejecución. Es algo
+que sirve para depuración (_debugging_). En realidad, es algo que para
+terminal no tiene mucho sentido y es excesivamente complicado; lo normal es
+usarlo en editores o IDEs de tipo GUI.
+
+Además, hay quien no lo valora a este tipo de funcionalidades.
+
+También, siempre puede hacer algo similar con enunciados `print()` (o el
+equivalente en su lenguaje). Es preferible crear unos buenos _tests_, con lo
+que se hace innecesaria la depuración mediante DAP.
+
+
+
+

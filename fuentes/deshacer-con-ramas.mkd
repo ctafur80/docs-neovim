@@ -1,0 +1,84 @@
+
+
+
+### Deshacer con ramas
+
+Referencias:
+
+- <https://advancedweb.hu/2017/09/12/vim-using-undo-branches/>
+- <https://vim.fandom.com/wiki/Using_undo_branches>
+
+Esta es una funcionalidad que el gran Bram Moolenaar añadió a Vim en su
+versión 7.0 y a la que creo que se puede sacar mucho partido. Consiste en
+usar un árbol (_tree_) en lugar de una pila (_stack_) en los hitos de
+edición, que es lo que se hacía antes y lo que se suele hacer en los demás
+editores e IDEs (con la notable excepción de Emacs).
+
+Tal y como ya sabrá, con [u]{.kbd} y [Ctrl]{.kbd} + [r]{.kbd} se hace _undo_
+y _redo_, respectivamente. Ahora, esto se sigue usando pero para moverse por
+la rama principal... pero existen formas de cambiar de ramas.
+
+Pero ¿a qué me refiero con _ramas_ (_branches_)? Veámoslo con un ejemplo
+práctico. Suponga que se encuentra editando lo siguiente:
+
+```vim
+Punto 1.
+
+Punto 2.
+
+Punto 3.
+```
+
+Debe editarlo de tal forma que, tras editar una línea, se ponga en modo
+normal y pase a editar en modo insert la siguiente. Es decir, escribe
+primero `Punto 1`, luego sale a modo normal y luego TKTK.
+
+Ahora, deshacemos el último cambio, con [Ctrl]{.kbd} + [r]{.kbd}:
+
+```vim
+Punto 1.
+
+Punto 2.
+```
+
+y editamos la última línea de un modo distinto:
+
+```vim
+Punto 1.
+
+Punto 2.
+
+Punto 4.
+```
+
+Entonces, en esta situación, en principio, haciendo undo y redo, no podemos
+volver al estado inicial, es decir, a
+
+```vim
+Punto 1.
+
+Punto 2.
+
+Punto 3.
+```
+
+Pruébelo si lo desea. Esto se debe a que la rama principal es ahora la que
+nos lleva al estado siguiente:
+
+```vim
+Punto 1.
+
+Punto 2.
+
+Punto 4.
+```
+
+Para ir al estado donde aparece `Punto 3`, tendríamos que cambiar de rama.
+Existe una forma mediante la que puede moverse por el histórico de ediciones
+de forma cronológica. Se hace con [g]{.kbd} [-]{.kbd} y [g]{.kbd} [+]{.kbd}.
+Puede hacer la prueba: con [g]{.kbd} [-]{.kbd} y [g]{.kbd} [+]{.kbd}, puede
+moverse por todo el histórico, de tal forma que pasará por todos los estados
+de edición en los que se ha encontrado el archivo que está editando.
+
+
+

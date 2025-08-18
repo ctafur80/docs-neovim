@@ -1,0 +1,40 @@
+
+
+
+### Neovim _vs._ VSCode
+
+Tengo la sensación de que tampoco se puede mejorar ya mucho de Vim. Hay
+quien piensa que esto es bueno. Es como tocar un instrumento: la guitarra es
+un instrumento muy antiguo y no ha sufrido muchos cambios; quizás, el más
+relevante sea el uso de la electrificación y la distorsión. Y, aun así,
+queda muchísimo para que saquemos todas sus posibilidades, si es que eso
+llega a ocurrir.
+
+Imagino que esto es lo que piensa la gente que hace un uso bastante
+minimalista de Vim y usan muy pocos _plug-ins_. Lo cierto es que el uso de
+Vim sin extensiones sigue siendo una auténtica pasada. Mucha gente no es
+consciente de que muchas de las cosas que hace mediante el uso de _plug-ins_
+podría hacerlas sin estos, pues Vim otorga muchas posibilidades.
+
+La eficiencia, en ciertos ámbitos, creo que está sobrevalorada. Es mejor los
+efectos de red.
+
+Últimamente, he estado pensando que quizás Vim y Neovim no tienen tanto
+futuro. Hay otros editores que parece que le superan en ciertas cosas que se
+pueden considerar básicas y que Vim y Neovim no tienen aún resueltas. Por
+ejemplo, en el resaltado de código. Creo que las gramáticas de TextMate son
+mejores, y VSCode va aún más allá al implementar el resaltado semántico
+(_semantic highlight_). Quizás, esto se solucione si las gramáticas de
+Tree-Sitter terminan obteniendo una gran calidad. Bueno, en realidad, las
+gramáticas de Tree-Sitter no pueden entregar resaltado semantico, sino solo
+sintáctico. Aun así, en Neovim están trabajando para tener resaltado
+semántico también de serie.
+
+Esto tiene relación también con lo que explica Nadia Eghbal en su libro
+TKTKTKTKTKTKTK[^1]
+
+[^1]: De hecho, si algo he sacado en claro tras leer el libro es que los que
+contribuyen actualmente al _open source_ son gente menos ideologizada y más
+práctica. Lo que quieren es que puedan contribuir de un modo más cómodo.
+
+

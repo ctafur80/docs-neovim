@@ -1,0 +1,14 @@
+
+
+
+## Mitos
+
+La mayoría de la gente piensa que lo que gusta de Neovim a sus partidarios
+son cosas como lo de moverse con las teclas [h]{.kbd}, [j]{.kbd}, etc. y
+otra serie de cosas. En realidad, no es solo eso. Vim (así como Neovim)
+cuenta con ciertas genialidades a la hora de editar, como, por ejemplo,
+[realizar una acción sobre una lista de
+argumentos](#actuar-sobre-varios-archivos), [deshacer con ramas][], etc. y
+hacerlo siempre desde el teclado de forma cómoda y rápida.
+
+

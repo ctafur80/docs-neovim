@@ -1,0 +1,124 @@
+
+
+
+## Pendiente
+
+En cuanto a los _plug-ins_ para la gestión de Git, creo que la mejor sigue
+siendo Fugitive, creada por Tim Pope. El problema es que está hecha en
+Vimscript, es decir, no la están modernizando a Lua. Por _plug-ins_ como
+este, están implementando en Neovim una funcionalidad para convertir
+fácilmente a Lua los hechos en Vimscript.
+[Tutorial](https://www.youtube.com/watch?v=II0MZpmR7KE).
+
+
+* * * *
+
+
+Si selecciona parte del código en modo visual y luego pulsa _igual_ (`=`),
+el código se indentará de forma automática.
+
+
+* * * *
+
+
+Aunque para alguien que haga uso de Neovim y no colabore en el desarrollo
+del proyecto no parezca que Neovim suponga muchos cambios con respecto a
+Vim, sí que se han hecho algunos [cambios en los parámetros
+predeterminados](https://neovim.io/doc/user/vim_diff.html#nvim-defaults).
+Son cambios bastante básicos que casi todo el mundo terminaba teniendo como
+están ahora.
+
+
+* * * *
+
+
+Cómo introducir comandos de Lua desde Ex.
+
+Por ejemplo, si queremos consultar el valor de la variable `formatoptions`,
+sería
+
+```
+:lua = vim.bo.formatoptions
+```
+
+y nos mostraría debajo el valor que tiene en ese momento.
+
+
+* * * *
+
+
+A veces, se desea hacer algún cambio en uno de los parámetros y parece que
+es imposible; que Neovim impide hacerlo. Muchas veces, se trata de que es un
+_plug-in_ el que lo modifica y el cambio tiene que hacerse después de la
+carga de este.
+
+Por ejemplo, esto me sucedió cuando quise cambiar el parámetro
+`formatoptions` para los archivos de código en C.
+
+Lo que intenté es simplemente modificar mi archivo _init.lua_ añadiéndole un
+_autocommand_\:
+
+```lua
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "c",
+    callback = function()
+        vim.opt.filetype = "c"
+        vim.opt.syntax = "c"
+
+        vim.opt.formatoptions = "tcronq/"
+    end,
+})
+```
+
+Esto es lo que debería suceder, pero en la práctica no sucedía. ¿Por qué? No
+lo sabía. Se podía intentar averiguar usando el comando de Ex siguiente:
+
+```
+:verbose set formatoptions?
+```
+
+Gracias a eso de `verbose`, se muestra qué archivo es el que modifica ese
+parámetro. En este caso, indicaba que se trataba de un archivo en el
+_runtime_ de Neovim y que era el archivo _c.vim_ bajo la carpeta _ftplugin_,
+que es la que indica el tipo de archivo (_ft_ viene de _filetype_). Esto es
+algo que aún se hace a la vieja usanza, es decir, con archivos de formato
+_.vim_, aunque es posible que en una próxima versión de Neovim se haga ya
+con archivos en formato _.lua_.
+
+Entonces, esa opción, para el caso del lenguaje C, la marca ese _plug-in_.
+Por tanto, para poder modificarlo, se tiene que hacer, en mi carpeta de
+configuración de Neovim (en mi caso, _\~/.config/nvim_), bajo la carpeta
+_after_ y, dentro de esta, bajo la carpeta _ftplugin_, un archivo _c.lua_
+con los ajustes que desee. Tal y como indica el nombre de la carpeta
+_after_, estos son ajustes que se hacen después de que se cargue el
+_ftplugin_, concretamente, _c.lua_.
+
+
+* * * *
+
+
+Para empezar, un editor no puede adherirse mucho a la filosofía de Unix,
+pues es por definición contrario a como se hacen las cosas en el _shell_.
+
+* * * *
+
+
+No sé por qué parece que ya hace lo de
+
+```Vimscript
+:set wildignore=\*.git/\*
+" vim.opt.wildignore = "*.git/*"
+```
+
+por sí mismo, sin que configure nada.
+
+
+* * * *
+
+
+`shiftwidth` indica el número de espacios en la indentación. `tabstop`
+indica el número de espacios de la tabulación. `softtabstop` indica la
+apariencia de la tabulación. Es decir, el número de espacios que formarían
+una tabulación.
+
+

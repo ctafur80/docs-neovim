@@ -1,0 +1,32 @@
+
+
+
+## Configuraciones básicas
+
+En lo que respecta a las configuraciones, es bastante común que la gente
+termine copiando trozos de configuraciones de otros sitios o que
+directamente se instale _plug-ins_ que son configuraciones para hacer que
+Neovim tenga las mismas funcionalidades que tendría un IDE.
+
+Personalmente, no me gusta eso, por varias razones. Las dos principales son
+que, por un lado, al hacer esto está personalizando en exceso a Neovim, con
+lo que es como si estuviese usando otro editor completamente diferente.
+Además, al hacer eso no avanza en su aprendizaje de Neovim.
+
+A este respecto, existe un _plug-in_ llamado `kickstart.nvim` que es como un
+punto de partida sobre el que comenzar a hacer su configuración de Neovim
+pero sin empezar desde una base tan básica.
+
+Personalmente, ya ni instalo `kickstart.nvim`, ya que estoy tratando de
+hacer un uso bastante minimalista. Aun así, sí que configuro ciertas cosas y
+uso algunos _plug-ins_.
+
+Quizás, los mejores tutoriales para hacer una configuración básica sin
+recurrir a cosas como `kickstart.nvim` sea la _playlist_ en YouTube de TJ
+DeVries titulada [Advent of Neovim][devries-advent-neovim] que hizo a
+finales de 2024.
+
+[devries-advent-neovim]: https://www.youtube.com/playlist?list=PLep05UYkc6wTyBe7kPjQFWVXTlhKeQejM
+
+
+

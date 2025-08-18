@@ -1,0 +1,20 @@
+
+
+
+### Multicursores
+
+No sé si son algo realmente útil. Creo que no. Para empezar, creo que todo
+lo que veo que se hace con multicursores se puede hacer con macros. También,
+hay quien se ha tomado la molestia de coleccionar [formas alternativas de
+hacer lo
+mismo](https://vonheikemen.github.io/devlog/tools/how-to-survive-without-multiple-cursors-in-vim/).
+
+No sé si lo llegarán a integrar de serie. En cualquier caso, existe algún
+_plug-in_ como [`multicursors.nvim`][].
+
+[`multicursors.nvim`]: https://github.com/smoka7/multicursors.nvim
+
+En cualquier caso, creo que es mucho más interesante las acciones sobre
+objetos mediante Tree-Sitter.
+
+

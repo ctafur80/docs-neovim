@@ -1,0 +1,84 @@
+
+
+
+### Autocomandos
+
+Uno de los ajustes más interesantes de Neovim son los autocomandos
+(_autocommands_). Estos nos permiten lanzar comandos según ciertos eventos
+(_events_). TKTK. Evidentemente, sirven para automatizar acciones en nuestro
+uso de Neovim.
+
+Puede ver [un tutorial][tuto-autocomandos] o [este
+otro](https://www.youtube.com/watch?v=qN6BuJpsFbQ&t=1s).
+
+[tuto-autocomandos]: https://www.youtube.com/watch?v=qN6BuJpsFbQ
+
+También, puede consultar la entrada [`autocmd`][neovim-docs-autocmd] de la
+documentación oficial de Neovim.
+
+[neovim-docs-autocmd]: https://neovim.io/doc/user/autocmd.html
+
+Hasta hace poco, incluso en Neovim se tenían que especificar con la sintaxis
+de Vim, es decir, en el lenguaje Vimscript. Sin embargo, ahora ya se puede
+mediante la API para poder hacer la configuración en Lua.
+
+La función para definir un autocomando directamente en Neovim es
+
+```vim
+:autocmd [<grupo>] <evento> <patrón> <comando>
+```
+
+Se trata, por tanto, de una función con parámetros posicionales. Como
+indican los corchetes, el parámetro `<grupo>` es opcional. Los demás que
+están encerrados entre `<>` son _placeholders_, es decir, deberá
+sustituirlos por valores concretos que desee usar en la creación del
+autocomando.
+
+En lugar de `autocmd`, se puede usar su versión abreviada: `au`.
+
+Para la creación de un autocomando con la API de Lua, que es como suelo
+hacer ahora la configuración de Neovim, la función es
+
+```lua
+vim.api.nvim_create_autocmd( { <evento> }, {
+  group = ,
+  pattern = ,
+  callback = ,
+})
+```
+
+Como ve, se tiene una tabla con eventos, aunque, si lo prefiere, puede
+introducir uno solo que no esté en formato tabla. Por ejemplo,
+
+
+```lua
+vim.api.nvim_create_autocmd("FileType", {
+    ...
+```
+
+El argumento `<group>` se usa para poder activar o desactivar de golpe
+varios autocomandos relacionados. Puede crear autogrupos, que son
+identificativos de subconjuntos de autocomandos. Para crear un autogrupo a
+la vieja usanza, se usa el comando `:augroup`. Con la API de Lua es
+
+```lua
+vim.api.nvim_create_augroup(<id_autogrupo>, { <opciones> })
+```
+
+Algo que tiene que tener en cuenta es que, de forma predeterminada, los
+comandos 
+
+
+Si desea consultar los eventos que tiene a su disposición, puede ir a la
+[entrada][neovim-docs-autocmd-events] correspondiente en la documentación
+oficial.
+
+[neovim-docs-autocmd-events]: https://neovim.io/doc/user/autocmd.html#autocmd-events
+
+
+
+
+
+
+
+

@@ -1,0 +1,47 @@
+
+
+#### Omnicompletion
+
+Refs.:
+
+-  <https://vim.fandom.com/wiki/Omni_completion>
+
+La forma tradicional del autocompletado en Vim es con lo que se conoce como
+Omnicompletion, que viene de serie en Vim y Neovim, aunque hay que
+activarlo, pues de forma predeterminada viene desactivado. Más información,
+con `:h compl-omni`. Para activarlo, puede hacer lo siguiente:
+
+```vim
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+```
+
+Creo que la primera línea en realidad no es necesaria, pues en Neovim viene
+activada de forma predeterminada.
+
+Omnicompletion tiene autocompletados para varios lenguajes, como SQL, HTML,
+CSS, JavaScript y PHP, pero hay muchos para los que no lo tiene, por lo que
+deberá crear sus propios _scripts_ de omnicompletion o buscar alguno hecho
+por alguien. TKTK. También, este autocompletado puede hacer uso de las
+_tags_, con lo que tendrá un autocompletado que tendrá en cuenta otros
+archivos distintos al que está editando pero del mismo proyecto. La
+información sobre las distintas funciones de autocompletado para los
+distintos lenguajes puede consultarla, en la ayuda oficial, en la entrada
+`compl-omni-filetypes`.
+
+Una vez que lo tenga configurado, para hacer uso de Omnicompletion, debe
+usar, en modo insert, la combinación de teclas [Ctrl]{.kbd} + [x]{.kbd}
+[Ctrl]{.kbd} + [o]{.kbd}. En cualquier caso, el autocompletado de palabras
+que aparecen en el mismo archivo que está editando creo que lo tiene siempre
+y se accede con [Ctrl]{.kbd} + [n]{.kbd} o [Ctrl]{.kbd} + [p]{.kbd} en modo
+insert. En ambos casos se irá en sentido opuesto. Además, [Down]{.kbd} (la
+flecha abajo) y [Up]{.kbd} (arriba), en modo insert, tendrían el mismo
+efecto que ambos ajustes de teclado, respectivamente.
+
+Existen formas más modernas de configurar el autocompletado en Neovim. Estas
+formas modernas suelen hacer uso de LSP, lo cual da más posibilidades que
+Omnicompletion.
+
+
+
+

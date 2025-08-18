@@ -1,0 +1,62 @@
+
+
+### Pliegues
+
+-  <https://www.youtube.com/watch?v=f_f08KnAJOQ>
+
+Los _pliegues_ (_folds_) son TKTK. Puede obtener información buscando por
+`fold` en la ayuda de Vim: `:help fold`.
+
+En principio, se debe usar una marca de pliegue (_fold mark_): una de
+apertura y una de cierre. En principio, la predefinida será
+
+```vim
+<x> {{{
+```
+
+donde `<x>` es el símbolo o símbolos de apertura de comentario del lenguaje
+que se trate. La de cierre es
+
+```vim
+<y> }}}
+```
+
+`<y>` son los símbolos de cierre de comentario.
+
+Se puede cambiar esa marca de `{{{` y `}}}` por la que usted desee. También,
+se puede hacer que el pliegue sea automático, por ejemplo, para Python, es
+muy común hacerlo por indentación, con
+
+```vim
+set foldmethod=indent
+```
+
+Aun así, el pliegue automático no es algo que me guste, pues prefiero usarlo
+para hacer divisiones lógicas del archivo.
+
+Para evitar que los archivos se abran de forma predeterminada con las partes
+plegadas, se puede usar
+
+```vim
+set foldlevel=99
+```
+
+
+* * * *
+
+
+[Aquí](https://vi.stackexchange.com/a/15440/22600) explican lo básico sobre
+el _folding_ del texto y de la columna de _folding_.
+
+Ahora mismo, no soy capaz de que me haga efecto `set foldcolumn=2` desde el
+principio, al incluirlo en el archivo de configuración de Vim.
+
+
+* * * *
+
+
+En cualquier caso, no me gusta lo de especificar pliegues, pues se usa
+notación específica para un editor.
+
+
+

@@ -1,0 +1,241 @@
+
+
+
+### Corrección lingüística
+
+Antes de nada, me gustaría aclarar que la corrección lingüística no es algo
+importante a la hora de programar. Personalmente, no la uso. Cuando sí la
+uso en Neovim es cuando estoy editando algún archivo de algún lenguaje de
+documentación, como, por ejemplo, Markdown, Djot o LaTeX.
+
+Como sabrá, la corrección lingüística consta a su vez de corrección
+ortográfica (_spell checking_) y corrección gramatical (_grammar checking_).
+Aquí, trataremos únicamente la primera, que es la única que suelen integrar
+los editores de código y los IDEs.
+
+Tal y como he explicado, para el desarrollo esto no es algo que se use muy a
+menudo. Casi no se le da importancia. Un desarrollador la usaría para la
+documentación técnica, como, por ejemplo, un archivo _README.md_ (de
+Markdown) de un repositorio de Git, para un mensaje de _commit_ de Git, para
+un _docstring_ de Python, etc. También, quizás, para los comentarios del
+código, aunque tampoco es imprescindible, pues es poca la prosa que se
+escribe en el código, a menos que haga _literate programming_, que no suele
+ser habitual.
+
+Lo primero que debe saber es que se tienen, por un lado, las listas de
+palabras (_word lists_) y, por otro, los diccionarios (_dictionaries_).
+Junto con los diccionarios, suele haber también listas de afijos
+(_affixes_).
+
+La mayoría de sistemas tipo Unix traen, de forma predeterminada, en algún
+lugar de su sistema de archivos, una lista de palabras del idioma inglés. En
+macOS, por ejemplo, su ruta es el archivo _words_ dentro de la carpeta
+_/usr/share/dict_.
+
+Esta lista de palabras puede usarla para hacer pruebas y cosas así, pero no
+es en realidad en lo que se basa normalmente el _software_ (el que sea) para
+hacer la corrección ortográfica.
+
+En lo que respecta a Vim y Neovim, actualmente hacen uso de la biblioteca
+ortográfica (_spelling library_) [Aspell][]. Este tipo de bibliotecas
+cuentan también con diccionarios y listas de afijos, para los distintos
+idiomas que soporta. Existen alternativas a Aspell algo más modernas, como,
+por ejemplo, Hunspell, que de hecho los desarrolladores de Neovim [están
+tratando][issue-hunspell] de hacer que esta sea la biblioteca ortográfica
+que use.
+
+[Aspell]: https://github.com/GNUAspell/aspell
+[issue-hunspell]: https://github.com/neovim/neovim/issues/12064
+
+En otros editores e IDEs se están usando otros también modernos, como
+[Cspell][], que se puede usar en VSCode, mediante una extensión.
+
+[Cspell]: https://github.com/streetsidesoftware/cspell
+
+Todas estas bibliotecas ortográficas tienen también la posibilidad de ser
+usadas mediante una herramienta de línea de comandos. Lo único es que, en
+ese caso, se pierde la interacción a este respecto.
+
+Dicho esto, voy a explicar aquí cómo se usa el corrector ortográfico
+integrado de Neovim, que es el mismo que el de Vim, pues es lo que tenemos
+actualmente. Creo que lo llaman Vimspell.
+
+Hay varias opciones a configurar en los ajustes. Una es
+
+```vim
+setlocal spell
+```
+
+Recuerde la diferencia entre `set` y `setlocal`. Este último tiene efecto
+solamente en el _buffer_ o ventana desde la que se lanza dicho comando,
+mientras que el primero hará que se aplique de forma global ese ajuste, en
+ese proceso del editor. Normalmente, tengo deshabilitada la corrección
+ortográfica y, en ciertos momentos, la activo en un _buffer_, para hacer
+comprobaciones. Así es como me gusta trabajar.
+
+Ahora, hay que cargar los diccionarios:
+
+```vim
+setlocal spelllang+=es_es
+```
+
+De forma predeterminada, viene `en`, que es el del idioma inglés. Los otros
+tendrá que añadirlos con el comando anterior. Así, carga el diccionario del
+español de España.
+
+También, me gusta usar el diccionario `kspell`:
+
+```vim
+complete+=kspell
+```
+
+o, si lo prefiere haciendo la configuración en Lua,
+
+```lua
+vim.opt.complete = vim.opt.complete + "kspell"
+```
+
+Así, se ha añadido la cadena `kspell` a la variable `complete`, quedando
+ahora con el valor `.,w,b,u,t,kspell`. La información sobre dicha variable
+puede consultarla buscando por `'complete'` en la ayuda oficial. Como quizás
+ya sepa, puede consultar el valor asignado en ese momento a esa variable con
+
+```vim
+:echo &complete
+```
+
+Como digo, esto lo pongo solo para prosa; no para código. Por tanto, estas
+configuraciones van en algún `autocmd`, como explican
+[aquí](https://thoughtbot.com/blog/vim-spell-checking).
+
+Quizás, se debería asignar un archivo _spellfile_ TKTK.
+
+Las secuencias de teclas que más uso, cuando estoy realizando la corrección
+ortográfica, son las siguientes:
+
+ - `]s` --- Salta a la palabra siguiente que considera errónea.
+ - `[s` --- Salta a la palabra anterior que considera errónea.
+ - `zg` --- Añade la palabra bajo el cursor al diccionario que está
+   seleccionado en ese _buffer_ o ventana.
+ - `zw` --- Elimina la palabra bajo el cursor del diccionario que está
+   seleccionado en ese _buffer_ o ventana.
+ - `zG` --- Como `zg` pero añade la palabra en la lista de palabras interna
+   (_internal wordlist_; vea `:help internal-wordlist`). La lista de
+   palabras interna se usa para todos los _buffers_ donde está habilitado
+   _spell_. Es temporal; no se almacena. Se limpia al salir del editor, por
+   lo que, al salir y volver a entrar en este, volverán a estar marcados
+   como errores ortográficos.
+ - `z=` --- Muestra sugerencias de corrección para una palabra errónea. No
+   lo suelo usar.
+
+Lo cierto es que tampoco es algo que use con gran frecuencia y además se
+pueden manipular editando los archivos, por lo que lo normal es que no
+recuerde las anteriores secuencias de Neovim.
+
+¿Cómo se haría para añadir una lista de palabras? Se puede crear uno una
+lista de palabras específica para una temática concreta. Por ejemplo, para
+ciencias de la computación. Crearíamos, en la carpeta en la que tenemos los
+archivos con extensión _.add_, que en mi caso sería en
+_~/.config/nvim/spell_, el archivo _comp-sci.utf-8.add_ (no puede tener
+guión bajo en el nombre; no sé si es obligatorio poner como infijo en el
+nombre la codificación del archivo: utf-8, ascii, etc.). En este, metemos
+algunas palabras para que reconozca; por ejemplo,
+
+```
+Git
+GitHub
+LaTeX
+TeX
+SVC
+Vim
+Neovim
+```
+
+Es conveniente disponer las líneas en orden alfabético y eliminar las
+repetidas. Esto se puede hacer muy fácilmente seleccionando todo en modo
+visual y, después, aplicándole un comando de _shell_, como se muestra a
+continuación:
+
+```vim
+:! sort | uniq
+```
+
+o, si lo prefiere, hacerlo directamente desde el _shell_, sin necesidad de
+hacerlo desde Neovim.
+
+Luego, añadiríamos la ruta del archivo al parámetro _spellfile_ en el
+archivo de configuración de Vim:
+
+```vim
+set spellfile+=$HOME/.config/nvim/spell/espanol.utf-8.add
+set spellfile+=$HOME/.config/nvim/spell/ingles.utf-8.add
+set spellfile+=$HOME/.config/nvim/spell/compsci.utf-8.add
+```
+
+o, si prefiere en Lua,
+
+```lua
+vim.opt.spellfile = vim.opt.spellfile + "$HOME/.config/nvim/spell/espanol.utf-8.add"
+vim.opt.spellfile = vim.opt.spellfile + "$HOME/.config/nvim/spell/ingles.utf-8.add"
+vim.opt.spellfile = vim.opt.spellfile + "$HOME/.config/nvim/spell/compsci.utf-8.add"
+```
+
+Debe crear esos archivos realmente. Ojo, no los confunda con
+_es\_es.utf-8.add_ y _en\_us.utf-8.add_, que estarán en la _runtime path_ y
+el usuario no debería tocarlos.
+
+También, debe crear el archivo con extensión _.spl_, a partir del _.add_.
+Dentro de Vim, hacemos:
+
+```vim
+:mkspell! ~/.config/nvim/spell/compsci.utf-8.add
+```
+
+Y, finalmente, lo cargaríamos con los demás _spelllangs_, por ejemplo,
+haciendo uso de un autocomando para que se carguen de forma automática para
+los archivos Markdown:
+
+```vim
+autocmd FileType markdown setlocal spell spelllang=es_es,espanol,en,ingles,compsci
+```
+
+Así, habrá creado el archivo _compsci.utf-8.spl_. Debe advertir que _es\_es_
+y _en\_us_ son especiales y se los descarga Neovim. No están en la misma
+ruta que los que haya creado usted.
+
+Me da un error. El problema está en que el comando `mkspell` crea los
+archivos nombrándolos con un _.add_ entre medias. Es decir, algo así,
+_compsci.utf-8.add.spl_. La forma en la que lo soluciono es eliminarle
+manualmente eso de _.add_ a todos.
+
+Tras esto, en este ejemplo, al abrir un archivo de Markdown, ya no nos
+mostrará como error esas palabras: LaTeX, etc.
+
+Cuando tiene cargadas varias listas de palabras de corrección ortográfica y
+gramatical (recuerde, se cargan en `spelllang`), para añadir una palabra a
+una en concreto, debe anteponer el número de la lista antes de la secuencia
+`zg`. Será el número del orden en el parámetro _spellfile_, comenzando a
+contar desde 1, pero, ojo, saltándose los predefinidos como, por ejemplo,
+`es_es` y `en_us`. Por ejemplo, para añadir una palabra, en este ejemplo, al
+diccionario comp-sci, se pondría encima de la palabra que desea añadir y
+luego pulsaría `3zg`, si su diccionario de ciencias de la computación está
+en tercer lugar al excluir los que dijimos. Al hacer esto, en principio,
+debería desaparecer. Creo que no hace falta convertirlo al archivo _.spl_.
+Aun así, creo que sería recomendable convertirlo para tener actualizado
+dicho archivo.
+
+```vim
+:mkspell! ~/.config/nvim/spell/comp-sci.utf-8.add
+```
+
+No se por qué pero no me deja de detectar como error las palabras añadidas
+al diccionario de español personal. Sí las detecta si los añado al inglés.
+TKTK.
+
+Estaría bien hacer que, de forma automática, tras modificar algún archivo
+_.add_, Neovim hiciese por sí mismo eso del `mkspell!`. Sería fácil de hacer
+con la herramienta de Unix `entr`. O, quizás mejor, con una función de Vim
+que se ejecute automáticamente bajo ciertas condiciones.
+
+
+

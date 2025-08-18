@@ -1,0 +1,41 @@
+
+
+
+### Inserción múltiple
+
+Antes, solía usar el modo bloque visual[^seleccion-rectangular] (_visual
+block_) para hacer este tipo de cosas: inserción múltiple, por ejemplo,
+insertar cierto texto al comienzo de varios renglones contiguos. Lo que
+haría sería
+
+[^seleccion-rectangular]: En otros editores, como, por ejemplo, VS Code, lo
+llaman _selección rectangular_ (_rectangular selection_).
+
+#. Entrar al modo bloque visual (con la combinación [Ctrl]{.kbd} +
+   [v]{.kbd}),
+#. Seleccionar una o más columnas de texto que cubran todos los renglones
+   que me interesan,
+#. Pulsar [Shift]{.kbd} + [i]{.kbd},
+#. Escribir lo que desea añadir a todos los renglones y, cuando haya
+   terminado,
+#. Pulsar [Esc]{.kbd}.
+
+Luego, aprendí otra forma de hacerlo de un modo que me gusta más, además de
+que es más versátil, es decir, nos permitirá hacer otros tipos de cosas, no
+solo introducir texto al comienzo. El método sería seleccionando en modo de
+línea visual (_visual line_) varios renglones de texto (ojo, no bloque
+visual) y luego introduciendo un comando en la línea, que se aplicará a
+todos los renglones. Para el ejemplo de antes sería:
+
+#. Entrar, en el primero de los renglones, a modo línea visual y bajar hasta
+   tener seleccionados todos los que le interesen.
+#. Pulsar [:]{.kbd}. Estará editando la línea de abajo y, al estar editando
+   sobre una línea visual, aparecerá, al lado del símbolo de dos puntos,
+   `'<,'>`.
+#. Ahora, añada el `COMANDO` que desee aplicar: `:'<,'>COMANDO`. Si se trata
+   de introducir texto al comienzo, podría ser `:'<,'>normal 0iTEXTO`, donde
+   `TEXTO` es el texto que desea añadir al comienzo de los renglones.
+#. Pulse [Intro]{.kbd}.
+
+
+

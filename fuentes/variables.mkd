@@ -1,0 +1,43 @@
+
+
+
+## Variables
+
+Las variables se pueden consultar en el modo Ex con
+
+```vim
+:echo &<variable>
+```
+
+donde `<variable>` debe sustituirse por el nombre de la variable de Neovim
+en cuestión. Por ejemplo, podría tratarse de la variable `formatoptions`.
+
+```vim
+:echo &formatoptions
+```
+
+También, se puede consultar haciendo uso del comando `set` o `setlocal` pero
+sin terminar de asignar nada, o asignando un signo de interrogación. Por
+ejemplo,
+
+```vim
+:set formatoptions
+```
+
+o
+
+```vim
+:set formatoptions=?
+```
+
+En la API de Lua, se consultaría con
+
+```lua
+:lua =vim.opt.formatoptions._value
+```
+
+Ese signo igual (`=`) hace que se muestre el resultado.
+
+
+
+

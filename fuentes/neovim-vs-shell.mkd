@@ -1,0 +1,20 @@
+
+
+
+### Neovim _vs._ _shell_
+
+También, algo en lo que a veces entra en conflicto el editor Vim es con el
+_shell_. Quiero decir que hay cosas que la gente la hace en Vim cuando sería
+más adecuado hacerla en el _shell_.
+
+Hay gente que está tratando de impulsar de nuevo el uso de herramientas de
+_shell_, tanto de tipo CLI como TUI. Por ejemplo, la empresa [Charm][].
+
+[Charm]: https://charm.sh/
+
+Lo cierto es que, cuando lo basas todo en un editor, tal y como ya ha
+sucedido con Emacs, pierdes en cierto modo la composabilidad que otorgan el
+_software_ de _shell_. Me refiero a la filosofía de Unix. Y Neovim parece
+que va por ese camino, al impulsar tanto la creación de _plug-ins_.
+
+

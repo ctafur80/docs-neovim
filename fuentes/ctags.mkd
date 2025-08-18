@@ -1,0 +1,30 @@
+
+
+
+### Ctags
+
+Las ctags son unas etiquetas que pueden usarse en un proyecto de _software_
+que esté editando. Lo que le permiten es moverse por el código fácilmente,
+por ejemplo, si se encuentra en una llamada a una clase, puede moverse
+fácilmente a la definición de esa clase, aunque se encuentre en otro archivo
+del proyecto.
+
+Deberá tener instalado el paquete de _software_ [`ctags`](TKTKTKTKTKTKTKTK).
+Por ejemplo, para macOS, está en Homebrew:
+
+```
+$ brew install ctags
+```
+
+Una vez que lo tenga instalado, para ir a la definición de un token sobre el
+que tenga el cursor, deberá usar la combinación [\^\]]{.kbd} (control cierre
+de corchete). Luego, puede moverse por la lista dando saltos con [\^o]{.kbd}
+y [\^i]{.kbd} para ir atrás y adelante.
+
+Puede ver también aquí [una explicación de las
+ctags](https://andrew.stwrt.ca/posts/vim-ctags/).
+
+Creo que actualmente las ctags están siendo superadas por las
+funcionalidades que otorgan los servidores de lenguajes (LSP).
+
+

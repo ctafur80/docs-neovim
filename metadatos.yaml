@@ -1,0 +1,20 @@
+author: "Carlos E. Tafur Egido"
+metad-author: "Carlos E. Tafur Egido"
+lang: es
+otherlangs: en
+title: "Documentación sobre Neovim"
+metad-title: "Documentación sobre Neovim"
+date: 02/08/2025
+metad-date: 02/08/2025
+description: "Documentación sobre Neovim."
+keywords:
+  - ciencias de la computación
+  - informática
+  - tipografía
+  - diseño
+  - documentación
+  - documentación técnica
+bibliography:
+  - ./referencias.yaml
+
+

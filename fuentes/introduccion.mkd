@@ -1,0 +1,406 @@
+
+
+
+
+## Introducción
+
+Un editor o IDE que pueda encontrarse en distintos _modos_ (_modes_) de
+edición se suele decir que es un _editor modal_ (_modal editor_). En cada
+modo, las pulsaciones de teclas, o las combinaciones de estas, producirán
+una acción distinta. Muchas de estas no consisten en insertar texto, sino
+realizar movimientos del cursor, selecciones, borrar palabras, etc. La
+alternativa a los editores modales son los editores no modales (_modeless
+editors_[^modeless]), que se caracterizan por encontrarse siempre en un
+único modo, sin poder cambiar a otro. Lo normal es que, en los no modales,
+las pulsaciones de teclas suelen insertar texto y cualquier otra función se
+suele hacer con atajos de teclados (_shortcuts_), es decir, combinaciones de
+teclas modificadoras (por ejemplo, [Alt]{.kbd} o [Ctrl]{.kbd}) con teclas
+normales. Un editor no modal, por tanto, está más limitado que uno modal en
+cuanto a las posibilidades de edición con el teclado.
+
+[^modeless]: Quizás, esta expresión, que la he leído en la propia
+  documentación oficial de Neovim, sea algo desacertada, pues los otros
+  editores tienen un modo. Bueno, o quizás no; según se mire.
+
+En cierto modo, usar un editor modal es como usar un lenguaje para editar.
+Es un lenguaje que no le muestra en pantalla código, sino que irá viendo en
+el editor los efectos de lo que codifica. Quizás su primera impresión sea
+que esto es demasiado cargante ---hacer uso de dos lenguajes a distintos
+niveles simultáneamente para escribir el código en el editor---, y,
+efectivamente, la curva de aprendizaje de los editores modales es algo
+escarpada, pero, cuando ha interiorizado ese lenguaje para la edición ---ha
+logrado crear la _muscle memory_ que requiere---, será capaz de editar a una
+velocidad increíble.
+
+Además, los modos son generativos y flexibles, es decir, a partir de un
+conjunto limitado de recursos, se pueden generar una cantidad de acciones
+casi ilimitada, ya que se pueden combinar entre sí; al contrario de lo que
+sucede con los editores no modales, en los que no tiene sentido generar
+atajos de teclado nuevos a partir de la combinación de otros básicos.
+
+El primer editor modal TKTK fue Vi, un editor TUI creado por Bill Joy en
+1976, TKTK. No es extraño que en esa época surgiese un editor modal, pues,
+aunque la empresa Xerox había presentado ya un computador con
+funcionalidades GUI, aún no se vendía ningún computador así. Un editor modal
+proporcionaba una gran ergonomía para editar archivos dentro de un terminal
+(o emulador de terminal).
+
+En 1991, el programador Bram Moolenaar creó, a partir de una bifurcación de
+código (_fork_) de Vi, Vi Improved, que es más conocido por su contracción:
+[Vim][]. Este es el editor que realmente popularizó los editores modales.
+Moolenaar realizó un gran trabajo, tanto en su "ergonomía" ---gracias a los
+modos--- como en la propia implementación del _software_; llegando incluso a
+crear un lenguaje propio, conocido como Vimscript, para la configuración del
+mismo, lo cual también terminó haciendo que se pudiesen usar _plug-ins_
+(algo similar a las extensiones en otros editores e IDEs).
+
+[Vim]: https://www.vim.org/
+
+En parte, algo que impulsó muchísimo la popularización de Vi y Vim fue que
+gran parte de los servidores tipo Unix (Linux, Solaris, etc.) lo traen
+instalado de serie. Por tanto, es muy probable que como administrador de
+sistemas encuentre que debe acceder a un servidor que tiene instalado aluno
+de estos dos. Y, como quizás sepa, los sistemas tipo Unix suelen seguir la
+filosofía de que los ajustes del sistema se hagan manipulando
+archivos.[^registro-windows] Por tanto, saber usar estos editores es una
+habilidad que se suele valorar en el mundo de la administración de sistemas.
+
+[^registro-windows]: Esto contrasta, por ejemplo, con la filosofía de los
+  sistemas Windows, que, en lugar de mediante archivos de configuración, la
+  administración se suele hacer mediante el Registro del sistema.
+
+Existen otros editores que se basan también en los modos de Vim. Algunos son
+_forks_ del propio Vim, que surgieron por discrepancias sobre el modo de
+gestionar el proyecto por Moolenaar; al parecer, era bastante
+dictatorial[^bdfl], aunque esto a veces es bueno en los proyectos de
+_software_ con licencias _open source_.
+
+[^bdfl]: Una forma de calificar al desarrollador principal de un proyecto de
+  _software_ con licencia _open source_ (incluyendo aquí también a las de
+  _software_ libre, _free software_) que lo maneja con "mano de hierro",
+  sobretodo cuando él (o ella) ha sido el creador inicial del mismo, es decir
+  que se trata de un _dictador benevolente de por vida_ (_benevolent dictator
+  for life_), o por sus siglas: BDFL.
+
+  En cierto modo, tiene bastante sentido que el desarrollador que más
+  dedicación ha puesto en un proyecto sea muy selectivo a la hora de aceptar
+  las contribuciones de otros. Me viene a la mente, por ejemplo, una
+  entrevista que escuché a Brendan Eich, el creador de JavaScript, en la que
+  explicaba que muchas de las partes muy criticadas de dicho lenguaje se
+  deben a que fue demasiado permisivo en un principio al aceptar la
+  solicitudes TKTK.
+
+  Existen varios proyectos de gran éxito en las ciencias de la computación
+  que se podría decir que son dirigidos por algún BDFL. Es el caso, por
+  ejemplo, del lenguaje Python, por parte de Guido Van Rossum, o Linux, por
+  Linux Torvalds. TKTK.
+
+El _fork_ más popular de Vim es [Neovim][web-de-neovim], que es al que se
+dedica este documento. Neovim, como proyecto de _software_, es dirigido de
+un modo más acorde a los tiempos modernos, haciendo uso de herramientas como
+GitHub, etc. También, cuenta con integración con tecnologías modernas para
+una edición más "inteligente" (_smarter_), como LSP y Tree-Sitter, que lo
+hacen acercarse más a un IDE, aunque solo en el caso de que el usuario así
+lo desee.
+
+[web-de-neovim]: https://neovim.io/
+
+De todos modos, debe tener en cuenta que Neovim trata de no "separarse" en
+exceso de Vim en su uso básico. Así, si quiere tener muchas de las
+funcionalidades modernas que se tienen actualmente, deberá especificarlas en
+la configuración o mediante el uso de _plug-ins_. Es decir, Neovim de serie
+es casi como Vim, y esto seguramente sea así para que, si el usuario se
+encuentra teniendo que editar en Vi o Vim, no "ande perdido".
+
+Otras herramientas que hacen uso de los modos Vim son simplemente
+extensiones o _plug-ins_ de editores o IDEs. En realidad tal y como explica
+el desarrollador Gary Bernhardt, [se dejan muchas funcionalidades sin
+implementar][bernhardt-modos-vim], pues los modos de Vim cuentan con
+muchísimas funcionalidades, como comprobará por usted mismo a lo largo de la
+lectura de este documento.
+
+[bernhardt-modos-vim]: https://twitter.com/garybernhardt/status/902956444596617216
+
+Un ejemplo de extensiones de modo Vim en un IDE es la de VSCode, que no
+suele gustar a los que la han usado. Existe también la integración del modo
+Vim en VSCode por medio del propio Neovim. TKTK. En cuanto a la extensión
+del modo Vim de Zed, parece que es mucho mejor que la de VSCode.
+
+Otro aspecto importante de Vim está en que su configuración es _scriptable_,
+es decir, uno mismo puede ampliar las funcionalidades del propio editor si
+toca la configuración. Esto hay a quien le gusta y a quien no. TKTK.
+
+Podemos también mencionar editores modales que usan modos distintos a los de
+Vim. Aun así, tienen un uso bastante marginal. El único que podría destacar
+es el editor Kakoune. A parte del propio editor Kakoune, también usa estos
+modos el editor Helix. Hay quien cree que los modos de Kakoune tienen mayor
+coherencia que los de Vim, pero, aunque así fuese, creo que no aportan
+prácticamente nada con respecto a los modos Vim. Además, a este respecto la
+inercia que tiene el modo Vim creo que hace que sea muy improbable que pueda
+llegar a ser sustituido por el modo Kakoune.
+
+
+
+
+### Neovim
+
+Neovim es un _fork_ de Vim que parece que le ha superado en ciertos
+aspectos. Se trata de un proyecto con un ritmo de desarrollo muy bueno.
+También, tras la muerte de Moolenaar, en agosto de 2023, el proyecto Vim
+parece que [ha tenido que readaptarse][vim-tras-moolenaar], pues, tal y como
+he explicado antes, el desarrollo del proyecto era básicamente hecho por
+Moolenaar, que en todo caso aceptaba sugerencias; es decir, era muy poco
+distribuido.
+
+[vim-tras-moolenaar]: https://www.youtube.com/watch?v=bopbmRyHQog
+
+Parece que el desarrollo de Neovim es el que cuenta con más actividad que el
+de Vim. Una diferencia importante entre estos está en el lenguaje de
+_scripting_ de la configuración. Vim cuenta con un lenguaje propio, llamado
+Vimscript, mientras que en Neovim se optó por delegar esto a un lenguaje ya
+existente llamado Lua. Se trata de un lenguaje con algunas peculiaridades.
+Lua se suele usar como lenguaje dinámico dentro de otro lenguaje, es decir,
+como lenguaje incrustado (_embedded_) dentro de un proyecto de _software_
+hecho en otro lenguaje más estático y "pesado". Así, es muy común integrar a
+Lua dentro de proyectos de _software_ de C++; por ejemplo, es muy común su
+uso de este modo en videojuegos.
+
+En el caso de Neovim, este cuenta con una API para usar Lua para la
+configuración del mismo, que se corresponde con todas las posibilidades que
+da Vimscript y los ajustes del propio Vim.
+
+Lua y Neovim comparten la filosofía de "navegar la ola", como ha dicho en
+varias ocasiones Justin Keyes, el que se podría decir que es quien dirige el
+desarrollo de Neovim. (En realidad, creo que Neovin lo ha copiado de Lua.)
+Esto se refleja, por ejemplo, en la elección de Lua como sustituto de
+Vimscript; así, no tienen que mantener el desarrollo de un lenguaje
+paralelamente al de un editor. También se refleja en otras decisiones de
+Neovim, como en el uso de ciertas bibliotecas (_libraries_) de _software_ de
+tipo _open source_ que existe de forma independiente para sistemas, en lugar
+de implementarlas por sí mismo, como sucede en Vim; al menos, sucedía en la
+época de Moolenaar. Quizás ahora hayan hecho una refactorización como Neovim
+a este respecto. A decir verdad, esto quizás se deba a que ni siquiera
+existían esas bibliotecas cuando Moolenaar las implementó.
+
+Por cierto, el proyecto Neovim ha dedicado bastante esfuerzo en que este
+siga siendo compatible con los _plug-ins_ de Vim, incluso los modernos
+(versión 9 de Vimscript), lo cual es un ejemplo más de esa filosofía.
+
+Por cierto, en lo que respecta a los _plug-ins_, algo que debe tener en
+cuenta es que lo que sería aconsejable es no abusar de su poder. Es decir,
+existen muchos _plug-ins_ que trastocan completamente el uso del propio Vim
+o Neovim. Esto va en contra de la filosofía de TKTK. Además, si, por
+cualquier cosa, tiene que volver a usar temporalmente un Vim puro, TKTK.
+
+Esto es algo de lo que se han dado cuenta los principales desarrolladores de
+Vim y Neovim, como Tim Pope y TKTK. Mi impresión es que debido a eso no
+suelen usar muchos _plug-ins_.
+
+Aunque Vim y Neovim cuenten con una curva de aprendizaje algo elevada, con
+cierto nivel de manejo de estos ya se es capaz de apreciar por qué son tan
+elogiados por mucha gente, en lo que respecta a la usabilidad; también puede
+llamarlo "ergonomía", si lo prefiere.
+
+Una muy buena introducción a Vim y Neovim es [_Learn Vim For the Last Time:
+A Tutorial and Primer_][learn-vim-for-the-last-time], de Daniel Miessler.
+
+[learn-vim-for-the-last-time]: https://danielmiessler.com/p/vim/
+
+
+
+---
+
+
+
+Los editores basados en modos otorgan, a quien tiene la paciencia de
+practicar y desarrollar cierta destreza en su manejo, una velocidad de
+edición increíble. Quizás, no tanto como la estenografía (_stenography_),
+pero no creo que esta sea una buena herramienta para programar; solo es útil
+para texto corrido; no para ediciones saltando entre partes distintas.
+
+
+
+Un inconveniente que tienen tanto Vim como Neovim es que se trata de
+editores que de serie tienen muchas carencias, desde el punto de vista
+actual. Es decir, muchas de las funcionalidades que se dan por sentadas a
+día de hoy en los IDEs, en Vim y Neovim deberá añadirlas mediante algún
+_plug-in_ o configurándolas por usted mismo. Esto se debe a que siguen una
+filosofía más de tipo bazar, en oposición a los proyectos de tipo catedral,
+según la dicotomía presentada en los 90 por TKTK.
+
+Para poder ser tan versátil, su configuración se tiene que hacer, en parte,
+mediante _scripting_, cosa que a mucha gente no le gusta. TKTK.
+
+A este respecto, tengo sentimientos enfrentados y no tengo una opinión bien
+formada. En Vim y Neovim, al final, en cierto modo, terminará
+transformándolo y personalizándolo en parte. Por un lado, a mucha gente le
+gusta que se les dé una herramienta con sus usos ya establecidos; no una que
+tenga un componente considerable de configuración y
+personalización.[^convention-over-conf] Es decir, eso de "_convention over
+configuration_".
+
+[^convention-over-conf]: Esto lo menciona la profesora de diseño web en el
+  MIT Lua Verou. TKTK. También, es de destacar que esta es la filosofía que
+  suele seguir la empresa Apple con sus productos. TKTK.
+
+Por otro lado, se puede considerar que con lo que trae el editor Vim o
+Neovim de serie es suficiente. Que todo lo demás es accesorio y no aporta
+gran cosa. Por ejemplo, quien dirige actualmente el proyecto Neovim, el
+programador Justin Keyes, hace, por lo que veo, un uso bastante minimalista
+de este. Otra persona relevante en el mundo de la programación que hace un
+uso bastante minimalista de Vim es Mitchell Hashimoto.
+
+También, existen muchos grandes programadores, como George Hotz o John
+Carmack, que casi no le dan importancia a las herramientas que usan. TKTK.
+Es cierto que no han llegado a usar Vim o Neovim durante mucho tiempo y que
+actualmente usan IDEs, pero TKTK.
+
+Esto demuestra que no es necesario ser un "mago" o un _power-user_" de las
+herramientas que usa uno para ser un programador de primer nivel.
+
+Sí que es cierto que muchos _plug-ins_ de Vim y Neovim han roto en parte con
+la filosofía de estos, y esto no es deseable.[^7] Es decir, lo ideal es que
+los _plug-ins_ se adapten a Vim y Neovim y no modifiquen ciertos principios
+de usabilidad de dichos editores. Buen ejemplo de _plug-ins_ que respetan al
+editor son los creados por el desarrollador Tim Pope, bastante popular en el
+ecosistema de los _plug-ins_ de Vim.
+
+[^7]: De hecho, en Vim, al principio no era posible la creación de
+  _plug-ins_. Es algo que añadió Moolenaar TKTK.
+
+Dicho esto, la mayoría de la gente usa, en mayor o menor medida, _plug-ins_
+en su uso de Vim y Neovim. La ventaja de Neovim, con respecto a Vim, está en
+que los _plug-ins_ se hacen en el lenguaje Lua, que es bastante más maduro
+que Vimscript.[^8] Además, así no se duplican esfuerzos en el proyecto, al
+no tener que estar desarrollando, en paralelo al propio editor, un lenguaje.
+Tal y como mencioné antes, esto es coherente con la filosofía de Neovim, que
+el propio Keyes ha mencionado en alguna conferencia. A veces lo sintetiza
+diciendo la frase "navegar la ola". Es decir, aprovechar el _software_ que
+ya existe, sin tener que reimplementarlo. Simplemente, integrándose con
+este. Por ejemplo, integrándose con algunos IDEs como VSCode, con algunos
+navegadores web, etc.
+
+
+---
+
+
+En realidad, Neovim no dista mucho de Vim. De hecho, es muy recomendable
+obtener un conocimiento algo avanzado de Vim, antes de pasarse a usar
+Neovim. Sobretodo, de su configuración.
+
+El mejor tutorial que he encontrado sobre la configuración avanzada de Vim
+es [este](https://www.youtube.com/watch?v=JFr28K65-5E).
+
+
+---
+
+
+George Hotz hablando de por qué prefiere a VSCode.
+
+<https://www.youtube.com/watch?v=bf8E8zSZTtE&t=5006s>
+
+La cuestión de fondo quizás está, en su caso, en que es preferible que los
+creadores de la herramienta sean quienes te impongan su forma de uso, en
+lugar de usar un montón de _plug-ins_. Algo así explicaba Lea Verou. Es
+también un poco la filosofía que sigue la empresa Apple con sus productos. A
+esto lo suelen llamar "convention over configuration".
+
+Por ejemplo, Hotz lo explica también en una entrevista con Lex Fridman.
+
+<https://www.reddit.com/r/ThePrimeagenReact/comments/14mpdke/george_hotz_lex_fridman_discussing_copilot_code/>
+
+
+---
+
+
+Pero ¿por qué Neovim? La gente que suele elegir Vim o Neovim para programar
+suelen hacer un uso bastante minimalista y con control de TKTK. Por ejemplo,
+[es el caso de Mitchell
+Hashimoto](https://www.youtube.com/watch?v=rysgxl35EGc), el creador de
+Terraform.
+
+[^1]: También hay quien los llama _acordes_ (_chords_), como suelen
+  llamarlos en la documentación de Emacs; otro editor.
+
+[^2]: A este respecto, por ejemplo, puede ingestigar sobre el _context
+  switching_. TKTK.
+
+[^3]: Aunque Vim es un proyecto _open source_, tenía que pasar absolutamente
+  todo por la aprobación de Bram; es decir, era un proyecto muy del estilo
+  _benevolent dictator for life_ (BDFL). Con lo cual, quizás el proyecto no
+  siga adelante tras la muerte de su creador y los que lo seguían usando
+  terminen por pasarse a Neovim, que es la bifurcación de este con mayor éxito
+  y cuenta con un desarrollo muy activo.
+
+[^4]: Hay que aclarar que Vim y Neovim también cuentan con atajos de teclado
+  (_shortcuts_), pero no se usan tanto como los modos (_modes_).
+
+[^5]: TKTK.
+
+
+
+[^8]: En realidad, en Neovim se pueden crear _plug-ins_ tanto en Vimscript
+  como en Lua, aunque lo usual suele ser en Lua. En Vim, sin embargo, solo
+  en Vimscript.
+
+
+---
+
+
+Quizás, el mejor tutorial sobre una configuración sea actualmente el
+titulado [_My Entire Neovim Setup From Scratch After 8
+Years_][devops-toolbox-config-tuto] del canal de YouTube DevOps Toolbox. En
+realidad, este hace referencia a varios tutoriales sobre las distintas
+partes.
+
+[devops-toolbox-config-tuto]: https://www.youtube.com/watch?v=x__SZUuLOxw
+
+En cualquier caso, yo actualmente suelo usar una configuración muy
+minimalista de Neovim.
+
+
+
+---
+
+
+Cuando se adentra en Neovim, lo normal es que le abrume la enorme cantidad
+de _plug-ins_ y configuraciones que realizan muchos usuarios. Esto se junta
+con la sensación que solemos tener todos inicialmente de que a Neovim le
+faltan muchas cosas con las que cuentan de serie otros editores e IDEs.
+Llegado un punto, si aprende lo básico de Vim o Neovim, se dará cuenta de
+que puede hacer un uso muy eficiente del mismo sin necesidad de muchas
+configuraciones y _plug-ins_. Yo actualmente hago un uso muy minimalista de
+Neovim.
+
+
+
+---
+
+
+Tal y como dice Bram Moolenaar.
+
+> Software development is much more of a craft. A craftsman uses whatever
+> tools he thinks will get the best result, no matter if they are what
+> everybody else is using or something different. And a good craftsman makes
+> his own tools when needed.
+
+
+
+---
+
+
+Referencia sobre la historia de Vim: <https://www.youtube.com/watch?v=_2y6vZna6fU>
+
+
+---
+
+
+Algo que quizás pueda llegar a ser el futuro sería que Neovim terminara
+separándose en algo como [KindaVim][] y el propio editor Neovim que funcione
+sobre este.
+
+[KindaVim]: https://kindavim.app/
+
+
+
+

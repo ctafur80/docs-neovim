@@ -1,0 +1,116 @@
+
+
+
+### _Buffer_, ventana y pestaña
+
+Una buena explicación de esto la hace TJ Devries en un
+[videotutorial][devries-buffers-ventanas]. También, puede leer [este
+artículo][articulo-buffers-ventanas-1] o [este otro
+vídeo][tuto-buffers-tabs-2].
+
+[devries-buffers-ventanas]: https://www.youtube.com/watch?v=htUMvXINZCA&list=PLep05UYkc6wTyBe7kPjQFWVXTlhKeQejM&index=11
+[articulo-buffers-ventanas-1]: https://medium.com/@paulodiovani/vim-buffers-windows-and-tabs-an-overview-8e2a57c57afa
+[tuto-buffers-tabs-2]: https://www.youtube.com/watch?v=sK6HR9lzgU0&pp=ugUEEgJlbg%3D%3D
+
+Lo primero que debe saber es que estos tres conceptos en Vim y Neovim no
+son exactamente iguales que en los editores e IDEs tradicionales, como
+VSCode, por ejemplo.
+
+Tal y como explican en la entrada `buffer` en la documentación oficial de
+Neovim (`:h buffer`), un _buffer_ es el texto en memoria de un archivo,
+aunque no tiene por qué estar mostrándose en el editor. Por tanto, en una
+sesión de su uso de Neovim se pueden tener varios archivos abiertos en
+_buffers_, aunque solo se esté mostrando uno. Se mostrarán en una _ventana_
+(_window_). Se podría decir que una ventana es un _viewport_ de un _buffer_.
+
+Como ve, las ventanas en Vim son un concepto distinto al de las ventanas en
+otros editores o IDEs como, por ejemplo, VSCode.
+
+Para ver los _buffers_ que tiene en su sesión de Neovim, puede usar el
+comando `:ls`. En la lista de los que muestra, se ve en la primera columna
+un número identificativo. En la tercera, aparece entrecomillada la ruta del
+archivo de dicho _buffer_.
+
+Para que se muestre uno de esos _buffers_ en su ventana (_window_) actual de
+Neovim, podría usar el comando `:buffer`, o, simplemente, `:b`, poniéndole
+como argumento el identificativo que corresponda al _buffer_ al que quiere
+pasar. Pero más cómodo es usar como argumento parte del nombre del archivo.
+Por ejemplo, para moverse al _buffer_ del archivo _makefile_ del proyecto,
+bastaría con `:b mak` (si no tiene otro archivo en algún _buffer_ cuyo
+nombre coincida con `mak` en alguna parte).
+
+También, puede hacer uso del _tab-completion_ en esto. Por ejemplo,
+introduzca `:b ` (advierta el espacio) y pulse la tecla [Tab]{.kbd}.
+Entonces, irá alternando entre TKTK.
+
+También, puede ir entrando en los directorios si, en una preselección de
+uno, introduce un asterisco y sigue haciendo _tab-completion_.
+
+También, puede moverse al _buffer_ previo con `:bp` (o su forma larga:
+`:bprev`) y al siguiente con `:bn` (o `:bnext`). Personalmente, uso esto
+bastante a menudo, porque me parece cómodo. También, la salida del comando
+`:ls` le muestra algunas marcas en algunos _buffers_; es en la segunda
+columna. Por ejemplo, la marca `#`. Para pasar a dicho _buffer_ basta con
+poner `:b#`. El _buffer_ `#` es algo curioso y bastante práctico. Tal y como
+puede ver en la ayuda del comando `:ls`, lo llaman el _alternate buffer_.
+Dicho _buffer_ será el que más veces visite. Personalmente, esto es algo que
+me viene muy bien. Por ejemplo, para la tabla de contenidos de un proyecto
+de documentación. Al ser el _buffer_ que más "visita", será el _alternate
+buffer_ sin que siquiera tenga que asignarle usted ese papel.
+
+Para cerrar un _buffer_, lo abro en una ventana y, desde ahí, uso el comando
+`:bde` (o su forma larga: `:bdelete`).
+
+En realidad, puede ver simultáneamente más de un _buffer_, es decir, no hay
+por qué tener una sola ventana abierta en un momento dado. Así, por ejemplo,
+puede dividir la interfaz de Neovim en dos ventanas verticales que muestren
+un mismo _buffer_, o que muestren _buffers_ distintos; lo que usted
+prefiera. Aunque lo segundo quizás haya visto hacerlo, lo primero también
+puede ser muy útil cuando se trata de un _buffer_ bastante extenso o con una
+especie de índice en su interior.
+
+Cuando entra a Neovim, tendrá abierta una ventana. Si prefiere tener dos
+ventanas verticales, tendrá que usar el comando `:vsplit`. Si prefiere que
+se abra una ventana en horizontal, sería con `:hsplit`. Para moverse por las
+ventanas, se usan atajos de teclados compuestos que usan como prefijo
+[Ctrl]{.kbd} + [w]{.kbd}. Así, por ejemplo, para pasar a la ventana de la
+derecha, puede usar [Ctrl]{.kbd} + [w]{.kbd} [l]{.kbd}. Recuerde que la
+tecla [l]{.kbd} se usa normalmente para moverse a la derecha, así que estos
+atajos de teclado tratan de mantener la coherencia con las otras funciones
+asociadas a teclas en Neovim. Otro atajo de ventanas que uso bastante es
+[Ctrl]{.kbd} + [w]{.kbd} [Ctrl]{.kbd} + [w]{.kbd}, que va cambiando a otra
+ventana, hasta llegar a la última y, entonces, volver a la primera. Como el
+máximo número de ventanas que uso son 2, este comando me resulta cómodo y
+fácil de usar sin pensar.
+
+Para cerrar una ventana, se hace con `:q` (o su forma larga: `:quit`). Debe
+tener cuidado de que, si solo tiene abierta una ventana, al usar `:q` se
+cerrará el propio Neovim.
+
+Algo que suelo usar, cuando estoy editando un archivo con bastantes líneas,
+es abrir una ventana para algún _buffer_. Uso el comando `:vsplit`. Luego,
+con [Ctrl]{.kbd} + [w]{.kbd} [Ctrl]{.kbd} + [w]{.kbd} me muevo entre
+ventanas. Así, puedo ir "saltando" entre dos partes bastante separadas de un
+mismo archivo, cosa que me hace más cómoda la edición. Otra opción sería el
+uso de [marcas][], pero sería algo más incómoda.
+
+Además, en relación a esto, también existe el concepto de _pestaña_ (_tab_).
+Hace alusión simplemente a la forma de agrupar las ventanas. Es decir, una
+pestaña es una agrupación de ventanas. Como ve, el concepto es algo distinto
+al de las pestañas de las aplicaciones de tipo GUI.
+
+Personalmente, no le doy uso a las pestañas del editor. Lo que hago es usar
+instancias distintas del editor.
+
+Existen los comandos `:tabnew`, `:tabnext`, `:tabprevious`, `:tabclose`,
+etc., asociados a las acciones que imagina. El comando `:tabnext` se puede
+lanzar también con la secuencia [g]{.kbd} [t]{.kbd} en el modo normal.
+
+
+
+
+
+<!-- Hacer que desaparezcan las demás ventanas de la vista: `:only`. -->
+
+
+

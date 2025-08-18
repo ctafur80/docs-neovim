@@ -1,0 +1,88 @@
+
+
+
+### Patrones
+
+Los [patrones][doc-pattern] (_patterns_), más concretamente, las expresiones
+regulares (_regular expressions_ o, abreviadamente, _regexes_), se usan
+bastante a menudo en Vim y Neovim. Un ejemplo es en las búsquedas y los
+reemplazos en la edición, aunque posiblemente también los verá en otras
+situaciones.
+
+[doc-pattern]: https://neovim.io/doc/user/pattern.html
+
+Como seguramente sepa, existen varios tipos de _regexes_. De forma
+predefinida, Vim y Neovim usan unas bastante antiguas. Si desea forzar que
+se use un tipo de _regexes_ más moderno, puede emplear, al comienzo de esta,
+el dígrafo `\v`, lo cual indica que se trata de una _very magic regex_. Aun
+así, estas creo que tampoco son como las que se suelen usar en el IDE VSCode
+o en algunos lenguajes modernos como Python.
+
+Existe un _plug-in_ para que se ponga el modo _very magic_ automáticamente
+cuando se va a usar una _regex_, pero creo que en ciertos casos no funciona;
+por ejemplo, en la [lista de argumentos](#actuar-sobre-varios-archivos).
+
+Lo ideal sería que se permitiera configurar para todo el editor el tipo de
+_regex_ que se use de forma predeterminada, pero esto creo que no se puede.
+Existe un _plug-in_ llamado Loupe para hacer esto, pero en ciertas
+situaciones no podrá usar las _regexes_ nuevas, con lo que se pierde
+coherencia en el comportamiento del editor.
+
+Una de las particularidades de las _regexes_ de Vi y Neovim es, por ejemplo,
+que la demarcación de _non-greedy_ es algo distinta a las _regexes_
+modernas. En estas últimas, se haría usando el sígno de cierre de
+interrogación; por ejemplo, algo así `.*?`. En Vim y Neovim, sin embargo,
+habría que poner el complementario TKTK. Por ejemplo, `.[^}]*`.
+
+
+* * * *
+
+
+En lo que respecta a las expresiones regulares, siempre hay que tener en
+cuenta a qué tipo en concreto de sintaxis de estas se usa. En el caso de
+VSCode, creo que se siguen la sintaxis Oniguruma, que es la misma que usa el
+lenguaje Ruby. En Vim, creo que se usan las de Perl. Además, de forma
+predeterminada se tienen las antiguas. Si se desea, se puede usar la
+moderna, anteponiendo con `\v`.
+
+Por ejemplo, una diferencia es la forma de marcar que una expresión sea
+_reticente_ (_reluctant_ o _non-greedy_). De forma predeterminada sí lo son.
+Esto quiere decir que se tomará el encaje (_match_) mayor posible. En caso
+de querer hacerla reticente, es decir, que tome el más pequeño, la sintaxis
+que se usa será distinta en VSCode y en Vim. En VSCode, por ejemplo, se
+podría hacer `.*?`. Ese signo de cierre de interrogación (`?`) es el que
+marca que sea reticente. En Vim, podría hacerse algo así TKTK. Puede
+consultarlo en la entrada [`non-greedy`][] en la ayuda oficial de Neovim. En
+Vim y Neovim, por su parte, deberá poner entre corchetes un símbolo que no
+desee que se incluya. Por ejemplo, la siguiente expresión regular para
+buscar haría que se busquen cadenas entre llaves pero de forma _non-greedy_,
+es decir, las menores posibles.
+
+[`non-greedy`]: https://neovim.io/doc/user/pattern.html#non-greedy
+
+```
+/{.[^}]*}
+```
+
+<https://macromates.com/manual/en/regular_expressions>
+
+
+* * * *
+
+
+El mejor manual de cómo usar las regex de Vim y Neovim, que, por cierto, son
+una pasada, es el de [vimregex][]. No se asuste por la estética tan fea de
+esa web; merece la pena seguir el tutorial.
+
+[vimregex]: http://vimregex.com/
+
+Las _regex_ no son solo para buscar y reemplazar, aunque esos son unos
+propósitos muy importantes. También se usan para crear archivos de resaltado
+de código de lenguajes, en la forma tradiciona (la forma moderna sería con
+Tree-Sitter, que no se basa en _regexes_).
+
+También, está bien
+[esto](https://www.reddit.com/r/vim/comments/cz1upx/substitute_in_vim/),
+para aprender lo básico de las sustituciones.
+
+

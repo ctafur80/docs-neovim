@@ -1,0 +1,56 @@
+
+
+
+### Línea de reposo del teclado
+
+Aunque quizás conozca algunos tipos de teclados ergonómicos, en realidad,
+los teclados normales tienen algo de ergonomía. Es decir, tal y como se
+explica en la _mecanografía_ (_touch typing_), existen formas "correctas" de
+escribir con el teclado. Un concepto importante a este respecto es el de la
+_línea de reposo_ (_home row_; o, si lo prefiere, _renglón de reposo_), que
+es TKTK.
+
+Pues bien, en el modo Vi, los movimientos más básicos, que serían como los
+de las flechas del teclado, se hacen con teclas de la línea de reposo (para
+la disposición qwerty, que es la más común). Así, las teclas [h]{.kbd},
+[j]{.kbd}, [k]{.kbd} y [l]{.kbd}, en el modo normal, hacen la función de las
+flechas para mover el cursor. Para llegar a las teclas fuera de la línea de
+reposo, tendrá que realizar un desplazamiento de línea con sus dedos, lo que
+hace que esas pulsaciones sean más incómodas. Por esto, lo ideal se
+considera que todo esté lo más cerca posible de la línea de reposo y, cuanto
+más alejada de esta se encuentre una tecla, más molesto será pulsarla. Hay
+quien trata de evitar esto configurando el _remapeo_ (_remaping_) de algunas
+teclas de uso muy frecuente, para así tenerlas más cerca de la línea de
+reposo. Debido a esto, el renglón de las teclas de función ([f1]{.kbd},
+[f2]{.kbd}, etc.) es un renglón "prohibido" en el modo Vi... salvo la tecla
+[Esc]{.kbd}, que es precisamente la tecla que más se usa en Vim, por razones
+evidentes, aunque hay quien [hace un remapeo de otras
+teclas](#remapeo-de-teclas) para que hagan como [Esc]{.kbd}.
+
+Dicho esto, no es el uso de las teclas de la línea de reposo como
+alternativa a las flechas lo que hace que el modo Vi sea una maravilla en
+cuanto a velocidad y comodidad de uso, sino la composición de acciones de
+edición en el modo normal.
+
+<!--
+De hecho, con el tiempo, para los movimientos básicos he notado que he ido
+usando otras teclas que hacen movimientos parecidos. Por ejemplo,
+
+- [backspace]{.kbd} para ir una posición hacia atrás (en lugar de
+  [h]{.kbd}). Esta, al contrario que [h]{.kbd}, le permite ir, desde la
+  columna línea de un renglón, al último carácter del anterior.
+- (_match_) [Enter]{.kbd} para bajar un renglón, en lugar de [j]{.kbd}. Al
+  igual que con [backspace]{.kbd}, estas tienen alguna diferencia sutil.
+- [-]{.kbd} para subir al renglón justo encima, en lugar de [k]{.kbd}. En
+  realidad, sube al primer carácter del renglón justo encima.
+
+En cualquier caso, creo que esto es cuestión de gustos personales.
+-->
+
+Otra cosa que seguramente termine usando más que los movimientos de un solo
+carácter son cosas como [w]{.kbd}, para saltar al inicio de la palabra
+siguiente, [e]{.kbd} salto al final de la palabra siguiente, o [b]{.kbd},
+salto hacia atrás.
+
+
+

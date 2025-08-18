@@ -1,0 +1,64 @@
+
+
+
+
+### Herramientas
+
+Como cualquier otro editor de textos o IDE, Neovim tiene herramientas que
+sirven para hacer más cómoda la edición. Además, con extensiones, se pueden
+añadir otras herramientas con este propósito.
+
+Algunas de las funciones de las que hablo son las siguientes:
+
+- _Análisis estático_ -- (_linting_). Muestra los errores (_errors_) y
+  advertencias (_warnings_) sobre el código.
+
+- _Autocompletado_ -- (_code-completion_). Muestra cómo puede terminar una
+  palabra que esté escribiendo. También se incluirían aquí los retazos
+  (_snippets_) básicos del lenguaje.
+
+- _Ir a definición_ -- (_go-to-definition_). Te mueve a la definición de una
+  función o un método. Vim tiene implementada una herramienta similar (no
+  con LSP) sin necesidad de extensiones.
+
+- _Formateador_ -- (_formatter_). Se le especifican algunos parámetros de
+  estilo, como, por ejemplo, la longitud de las líneas, la distancia en
+  líneas en blanco entre las distintas partes del código, etc., y, cuando se
+  le indique, lo transforma. Un ejemplo es la famosa extensión
+  [Prettier](https://prettier.io/), para los lenguajes de la web, como HTML,
+  CSS, JSON, Markdown, etc. También los llaman _code formatter_ y _format
+  runner_.
+
+Actualmente, el formateador de código que más se suele usar para Python es
+[Black][formateador-black].
+
+[formateador-black]: https://github.com/psf/black
+
+Es muy relevante un proyecto que inició Microsoft sobre 2017, el [Language
+Server Protocol](TKTKTKTKTKTK) (LSP), que pretende unificar las extensiones
+de los distintos editores en uno solo. Por ejemplo, para el _linting_,
+autocompletado, formateador, etc., de Python, tendríamos un solo servidor
+---por ejemplo,
+[`python-lsp-server`](https://github.com/python-lsp/python-lsp-server)---,
+hecho en Python, y esta serviría para todos los editores o IDEs, siempre y
+cuando tengan un cliente de LSP. Esto unifica el esfuerzo para cada lenguaje
+en un solo servidor, en lugar de tener que hacer una extensión para cada
+editor o IDE.
+
+Antes de la versión 0.5 de Neovim, la gente usaba ciertas extensiones para
+tener esa funcionalidad, como ALE y Coc. Ahora, con Neovim 0.5, no es
+necesario. Aun así, creo que se deben instalar extensiones para poder usar
+LSP; tengo que investigar un poco TKTK.
+
+Además de una extensión que le dé compatibilidad con LSP, necesita instalar
+las herramientas de LSP para los lenguajes que vaya a usar en su sistema.
+
+Además, algunas de estas extensiones se limitan a proporcionarle la
+funcionalidad con LSP pero no le proporcionan autocompletado. Esto sucede,
+por ejemplo, con LanguageClient-neovim. Deberá completarlo con una extensión
+que le permita tener autocompletado, como, por ejemplo, Deoplete. Mucha
+gente opta por otra opción: instalar una extensión que le proporcione ambas
+funcionalidades, como, por ejemplo `coc`, que está alcanzando últimamente
+mucha fama en el mundo de Vim.
+
+

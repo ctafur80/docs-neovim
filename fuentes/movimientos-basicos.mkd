@@ -1,0 +1,91 @@
+
+
+### Movimientos básicos
+
+Los movimientos básicos suele ser lo primero que se explica en los manuales
+de Vim. Eso, y cómo salir del editor. (Siempre se hacen bromas con esto
+último.)
+
+El modo más fácil de aprenderlos creo que es usando Vimtutor o mediante
+alguna chuleta (_cheatsheet_) de las muchas que hay por la web.
+
+Hay ciertos movimientos básicos que se pueden hacer con teclas más fáciles
+de acceder, como moverse una columna de texto hacia la derecha, que como
+sabrá se hace con [l]{.kbd}. Puede hacerse también con [Espacio]{.kbd}, que
+es mucho más cómodo. Para ir una columna hacia la izquierda, en lugar de
+[h]{.kbd}, puede usar la tecla de borrar (_backspace_). Para bajar, en lugar
+de [j]{.kbd}, [Intro]{.kbd}; bueno, no son exactamente iguales. Lo que
+quiero decir es que hacer un uso eficiente de Vim no se limita, ni mucho
+menos, a saber moverse con [h]{.kbd}, [j]{.kbd}, [k]{.kbd} y [l]{.kbd}. De
+hecho, eso es lo menos interesante.
+
+Si desea ir al final de un párrafo _hard-wrapped_, para mí, lo más cómodo es
+moverme al renglón posterior al párrafo, con [\}]{.kbd}, y luego moverme
+hacia atrás con [borrado]{.kbd}. La otra forma, para mí más incómoda, es
+moverse hasta el último de los renglones del párrafo (puede hacerlo
+cómodamente dejando pulsada la tecla [Intro]{.kbd}[^repeticion-teclas]) y,
+cuando se encuentre en este, ir al final del renglón, con [\$]{.kbd}.
+
+[^repeticion-teclas]: Esta es otra de las cosas que no me gustan del modo Vi
+de la mayoría de editores de texto. Si deja pulsada una tecla, no sigue
+actuando, sino que actúa una sola vez por pulsación. No sé por qué hacen
+esto. Imagino que se solucionará cuando se pueda usar el modo Vim mediante
+Neovim.
+
+Hay mucha gente que usa otra forma de editar. Si la usan es la consideran
+más cómoda, aunque a mí no me lo parece. Me refiero al uso de la numeración
+relativa. Esta le permite hacer operaciones sobre cierto número de renglones
+de un solo golpe, sin necesidad de seleccionar y aproximarse. Veámoslo con
+un ejemplo con el código siguiente:
+
+```javascript
+polkit.addRule(function(action, subject) {
+  if ((action.id == "org.freedesktop.login1.reboot" ||
+    action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
+    action.id == "org.freedesktop.login1.power-off" ||
+    action.id == "org.freedesktop.login1.power-off-multiple-sessions" ||
+    action.id == "org.freedesktop.login1.suspend" ||
+    action.id == "org.freedesktop.login1.suspend-multiple-sessions" ||
+    action.id == "org.freedesktop.login1.hibernate" ||
+    action.id == "org.freedesktop.login1.hibernate-multiple-sessions") && subject.isInGroup("power"))
+  {
+    return polkit.Result.YES;
+  }
+}
+```
+
+Imagine que se encuentra en la línea 2 y desea eliminar todo lo que hay
+hasta la 9, incluyéndola. Sería muy sencillo de hacer si tiene la numeración
+relativa, pues verá que la última se encuentra en el renglón 7 respecto al
+que se encuentra su cursor: [d]{.kbd} [7]{.kbd} [j]{.kbd}. Se lo indica de
+forma directa.
+
+Esto quizás ya no sea tan conveniente. Ahora, con la integración con
+Tree-Sitter, uno puede manipular de forma muy directa ciertos objetos de
+textos, como, por ejemplo, el cuerpo en la definición de una clase o de una
+función. Esto se puede configurar con el _plug-in_ `tree-sitter-objects`.
+
+Aunque esta es la forma más rápida que conozco de llevar a cabo esa edición,
+no me gusta tanto, pues tengo que fijarme en la línea, buscar su número (7
+en este caso) y, además, usar una tecla de número, que tienen un acceso más
+complicado en el teclado. En mi opinión, merece más la pena usar la
+selección y moverme.
+
+Al no usar numeración relativa y esta forma tan rápida de moverse, me veo
+obligado a usar la selección para ciertas operaciones y, por tanto, realizo
+más movimientos. La ventaja creo que está en que no pierdo nada de tiempo
+buscando la línea a la que me quiero mover y, además, las teclas de números
+me parecen algo incómodas y trato de evitar su uso. De mi modo, hago más
+movimientos pero son más mecánicos; los hago sin pensar.
+
+En el mismo ejemplo, lo primero sería entrar en el modo visual, pero para
+toda la línea, con [Shift]{.kbd} [v]{.kbd}. Luego, dejar pulsada
+[Intro]{.kbd} hasta que llegue seleccionando hasta la línea que deseo. Así
+se habrá seleccionado todo lo que deseo eliminar. Entonces, no queda más que
+pulsar [d]{.kbd} para eliminar lo seleccionado.
+
+Otra forma de moverse rápido es mediante la búsqueda, tal y como explican al
+comienzo de [este vídeo](https://www.youtube.com/watch?v=kgS2cpGfSio).
+
+
+

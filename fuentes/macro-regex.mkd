@@ -1,0 +1,13 @@
+
+
+
+### Macro sobre _regex_
+
+Por ejemplo, el macro almacenado en el registro `o` y `pattern` sería la
+regex:
+
+```vim
+:g/pattern/norm @o
+```
+
+

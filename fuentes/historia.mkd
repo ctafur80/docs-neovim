@@ -1,0 +1,65 @@
+
+
+
+## Historia
+
+Tal y como hemos dicho, Neovim surgió como bifurcación de Vim (Vi Improved),
+creado por Bram Moolenaar, en 1991, que es a su vez una bifurcación de Vi,
+creado en 1976 por Bill Joy, una persona muy relevante en la historia de las
+ciencias de la computación. Aun así, Vi era un editor bastante simple que
+surgió de forma natural debido a las limitaciones del _hardware_ de la
+época: no se habían inventado el ratón ni la interfaz gráfica de usuario.
+Vim sí supuso un salto grande en cuanto a la cantidad de funcionalidades y
+lo cierto es que la interfaz de uso mediante modos (_modes_) de Vim son una
+auténtica genialidad.
+
+Aun así, llegó un punto en el que Vim se quedó bastante obsoleto en
+comparación con otros editores modernos como Sublime Text y [Visual Studio
+Code](#vscode) (VSCode), además de que el modo en que Moolenaar dirigía el
+proyecto era bastante "dictatorial" y ponía muchas pegas a las propuestas
+para modernizarlo. Por ejemplo, modernizar la base del código, pues había
+partes que podrían sustituirse por bibliotecas de C, en lugar de ser
+implementadas por el propio editor. También, eliminar el soporte para
+ciertas arquitecturas obsoletas como, por ejemplo, Amiga. Estas fueron las
+principales motivaciones para la creación de Neoivm.
+
+Tras esta adaptación inicial, Neovim pasó a centrarse más en adoptar LSP y
+Tree-Sitter, unas tecnologías modernas de editores e IDEs que básicamente
+hacen que el editor sea más "inteligente". Por ejemplo, antes, para
+renombrar una variable, tenía que tener en cuenta que lo que estaba
+renombrando en realidad era esa coincidencia (_match_) de texto, como mucho,
+usando una expresión regular; ahora, gracias a esa "inteligencia", puedo
+ordenar que se renombre a un objeto en particular, sin el problema de que
+haya coincidencias parciales con otros identificativos en el código o con
+partes de cadenas.
+
+Las cosas interesantes que podría consultar sobre Neovim a partir de sus
+propias fuentes de información, son `:help msgpack-rpc`, `:help
+nvim-features`. Es interesante también una herramienta de diagnóstico que
+trae de serie: `:checkhealth`.
+
+Las versiones de Neovim anteriores a la 0.5 se centraron en refactorizar el
+código de Vim para adaptarlo a los nuevos tiempos, así como la integración
+de Lua como lenguaje de apoyo, sustituyendo así a Vimscript donde se pueda.
+A partir de la versión 0.5, los proyectos comenzaron a diverger.
+
+Entre las principales funcionalidades que trata de implementar Neovim (con
+respecto a Vim), está que Lua sea un lenguaje tan importante para las
+extensiones y la configuración como lo es Vimscript. La razón principal está
+en que Vimscript es muy lento y tampoco es que sea un gran lenguaje. A
+partir de dicha versión, se podrá usar Lua en el archivo de configuración de
+Neovim. Es decir, si antes usaba el archivo _init.vim_ para cargar
+extensiones y hacer ajustes, ahora podrá convertirlo a un archivo
+_init.lua_, con las ventajas que trae esto. También, dentro de archivos de
+Vim, puede introducir partes de código Lua.
+
+Para aprender cómo usar Lua para Neovim, puede consultar [la entrada al
+respecto](https://neovim.io/doc/user/lua.html) en la documentación oficial
+de Neovim.
+
+Hay que mencionar también que, en Agosto de 2023, falleció Bram Moolenaar,
+con lo que creo que la dirección del proyecto Vim se encuentra actualmente
+en el aire.
+
+
+

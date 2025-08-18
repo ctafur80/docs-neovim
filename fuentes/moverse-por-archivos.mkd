@@ -1,0 +1,252 @@
+
+
+
+### Moverse por archivos
+
+Aunque ahora con los editores e IDEs modernos mucha gente está adquiriendo
+la costumbre de separar menos en archivos distintos el código, creo que esta
+es una mala costumbre; un estilo equivocado de construir un proyecto de
+_software_.
+
+[Tutorial](https://www.youtube.com/watch?v=faoPxXSj8n0&t=11s).
+
+Aunque puede ejecutar comandos de su _shell_ desde Ex, dentro de Vim o
+Neovim, cosa que se hace anteponiendo un signo de cierre de exclamación
+(`!`) al comando de _shell_, por ejemplo,
+
+```vim
+:!grep <busqueda> <ruta>
+```
+
+en realidad no le encuentro gran utilidad. Prefiero salirme momentáneamente
+al _shell_, cosa que se hace con la combinación de teclas [Ctrl]{.kbd} +
+[z]{.kbd}, y ejecutar los comandos desde el editor en el propio editor de
+línea del _shell_, pues así puedo usar el autocompletado, etc. Para volver a
+Neovim, se usa el comando `fg`. También, tanto Vim como Neovim cuentan ahora
+con un terminal integrado, pero no le veo ventaja con lo que acabo de
+explicar.
+
+Por cierto, sobre la cuestión de qué es mejor, si usar el ejecutable de
+Neovim para moverse o comandos dentro del propio Neovim, esto depende de lo
+que prefiera. Aunque a mucha gente no le guste hacerlo con el ejecutable, no
+está tan mal. Además, se adhiere más a la filosofía de Unix. Pero, si lo que
+desea es hacerlo todo al estilo Unix, mejor que usar Neovim sería que usase
+un editor más minimalista, como Nano, y tratar de hacer todo lo posible
+desde el _shell_.
+
+Aunque existen _plug-ins_ para mostrar la parte relevante del sistema de
+archivos y moverse por esta, como Nerdtree o, mejor, Telescope, o incluso
+Netrw, un _plug-in_ para una gestión de archivos muy simple que viene
+preinstalado en Vim y Neovim, tampoco hago mucho uso de estos, sino que
+prefiero usar las funcionalidades que vienen de serie con el propio Neovim
+(que heredó de Vim). Neovim cuenta con ciertos comandos como los del
+_shell_, pero que no son los mismos en realidad: `:find`,
+[`:vimgrep`](#vimgrep), etc. Al usar `:grep` o `:vimgrep` (de Vim), podrá
+moverse por los resultados del comando en la lista _quickfix_ (_quickfix
+list_) de Neovim.
+
+Por cierto, al parecer se puede hacer que, en lugar de la herramienta `grep`
+del _shell_, [se use, si lo prefiere RipGrep][grep-rg], que es una
+alternativa moderna a `grep`, aunque en realidad se trata de herramientas
+con propósitos ligeramente diferentes.
+
+[grep-rg]: https://www.reddit.com/r/neovim/comments/1c0bemk/using_ripgrep_as_grepprg_to_search_in_the_current/
+
+Existe un _plug-in_, que viene integrado de serie en Vim y Neovim, llamado
+Netrw, que es una interfaz TUI de gestión de archivos, dentro del propio
+editor. Aunque antes lo usaba, ahora mi preferencia es deshabilitarlo para
+que no me entorpezca. Para gestionar archivos, prefiero "salir" al _shell_.
+Además, al tener abierto un _buffer_ de Netrw, entorpecía en parte mi uso
+del editor.
+
+
+
+
+#### _Buffers_ y lista de argumentos
+
+Antes de hablar de los comandos que puede usar para moverse, debe saber que
+Neovim cuenta con una _lista de argumentos_ (_arguments list_ o _arglist_),
+que sería como una lista con los archivos y carpetas que se le han pasado al
+comando de ejecución de Neovim (normalmente, `nvim`) al invocarlo, aunque
+también se puede manipular esta desde dentro del propio Neovim.
+
+Tal y como hemos dicho, se puede abrir Neovim especificando como argumentos
+del comando de ejecucón de Neovim los archivos o carpetas que desea abrir.
+Los archivos aparecerán abiertos en _buffers_ y en la lista de argumentos.
+Las carpetas seleccionadas, cuando se mueve a su _buffer_ asociado, verá que
+lo que hace es mostrarla en el editor Netrw. Como pasa normalmente con este
+tipo de herramientas muy asociadas al _shell_, en este caso se pueden usar
+comodines (_wildcards_) para hacer más cómoda la selección de argumentos.
+
+
+
+#### Comando `:args`
+
+Una forma muy práctica y que uso mucho es con los comandos de la lista de
+argumentos, que suelen comenzar por `:arg`. Se tiene, por ejemplo, `:args`,
+que, si se introduce sin darle ningún argumento, mostrará la lista de
+argumentos que tiene en ese momento. Si al comando `:args` se le añaden
+algún o algunos argumentos, que deben ser rutas (absolutas o relativas) de
+archivos o carpetas, lo que hará será vaciar la lista de argumentos y
+llenarla con los argumentos que le ha dado. También, abrirá todas esas rutas
+como _buffers_. Esto mismo se puede hacer también con el comando `:next`,
+siempre y cuando añada a este algún argumento. La forma abreviada de `:next`
+es `:n`. Se tiene también el comando `:argadd`, que permite añadir elementos
+a la lista de argumentos sin vaciarla previamente.
+
+Para "sacar" elementos de la lista de argumentos, se usa `:argdelete` o, de
+forma abreviada `:argdel`. Admite el uso de comodines. Así, por ejemplo, si
+desea vaciar dicha lista, podría lograrlo con `:argdelete *`.
+
+Se encontrará con un _buffer_ en el que tiene abierto un elemento de la
+lista de argumentos, es decir, un archivo o carpeta. Si introduce el comando
+`:next` sin argumentos, pasará a un _buffer_ con el siguiente elemento en la
+lista de argumentos. Para atrás, sería con `:previous`. Personalmente, no me
+gusta usar estos comandos, pues me resultan incómodos. Prefiero usar
+`:bnext` y `:bprevious` o, más bien, sus formas abreviadas `:bn` y `:bp`,
+para moverme entre _buffers_. Creo que en realidad hacen lo mismo. TKTK.
+
+
+
+#### Comando `:edit`
+
+Tambén, desde el propio Neovim, existe el comando `:edit`, o, simplemente,
+`:e`, en su forma corta. Como argumento, se deberá poner un archivo o una
+carpeta, al igual que con el comando del ejecutable de Neovim, solo que
+deberá seleccionar un único archivo, pues [no deja seleccionar
+varios][edit-sel-multiple]. Para abrir varios de golpe, deberá usar otros
+comandos que se ven aquí mismo, como `:args` o `:find`. Si el argumento es
+un archivo, lo abrirá en un _buffer_; si se trata de una carpeta, la
+mostrará en Netrw. Aunque no los incluirá en la lista de argumentos. Además,
+al igual que sucede con `:find`, con `:edit` se añadirán esos archivos o
+carpetas a los _buffers_ que tiene; no reemplazará a los que ya tiene.
+
+[edit-sel-multiple]: https://jdhao.github.io/2020/10/28/edit_multiple_files_nvim/
+
+Personalmente, cuando uso Vim o Neovim, me encuentro constantemente haciendo
+uso del comando `:e`, pues es muy cómodo para moverse.
+
+Un truco que uso con `:e` es usar su autocompletado al máximo. Como quizás
+ya sepa, `:e` cuenta con autocompletado (_tab completion_). Esto
+autocompleta con los archivos o carpetas en los directorios de las carpetas
+que estén incluidas en la variable `path` del editor. Mientras le hace el
+autocompletado, puede distinguir los archivos de las carpetas porque estas
+últimas aparecen con una barra inclinada (`/`) al final del nombre. Para
+entrar, dentro de una carpeta que me vaya mostrando, y seguir seleccionando
+dentro de esta, lo que se puede hacer es pulsar una vez la tecla
+[Shift]{.kbd} y seguir pulsando [Tab]{.kbd} para que muestre archivos y
+carpetas dentro de esta. Es algo que me resulta comodísimo.
+
+Existen otras formas, pero son más incordio. Por ejemplo, usar el comodín
+asterisco, `*`, y seguir pulsando [Tab]{.kbd} o usar la barra inclinada,
+[/]{.kbd}, y seguir con [Tab]{.kbd}.
+
+
+
+
+
+#### Comando `:find`
+
+Otro comando en Neovim que viene muy bien para moverse es `:find`. Este debe
+usarlo siempre con uno o varios argumentos, que, al igual que con los otros
+comandos, deben ser rutas absolutas o relativas de archivos o carpetas.
+También se pueden emplear comodines. Con el comando `:find`, las rutas que
+introduzca como argumentos se añadirán como _buffers_, pero no a la lista de
+argumentos.
+
+Al igual que sucede con `:edit`, con `:find` se añadirán esos archivos o
+carpetas a los _buffers_ que tiene; no remplazará a los que ya tiene.
+
+
+
+#### Comando `:filter`
+
+El comando `:filter` puede usarse para ir, dentro de una carpeta con muchos
+archivos, a la última que se editó. Se puede hacer con
+
+```vim
+:filter '*.md' oldfiles
+```
+
+si, por ejemplo, desea filtrar por archivos con extensión _.md_, aunque no
+entiendo por qué parece que está mal. Por cierto, se tienen que usar
+comillas simples forzosamente.
+
+El comando `:filter` en realidad, tal y como indica su nombre, lo que hace
+es filtrar. Aquí, el comando que se está filtrando es `:oldfiles`.
+
+En este ejemplo, si lo prefiere, puede no especificar el tipo de archivo.
+Sería así:
+
+```vim
+:filter '' oldfiles
+```
+
+que es más cómodo.
+
+Desde la API de Lua, se puede acceder a la tabla `oldfiles`, que está en
+`vim.v.oldfiles`. TKTK.
+
+Esto sería algo que creo que estaría bien asociarla a una secuencia de
+teclas con la _leader key_, aunque en principio tampoco es algo que haga tan
+a menudo.
+
+En Neovim se tiene de serie activada la funcionalidad de autocompletado
+(_tab completion_) para los argumentos de algún comando que acepte como
+argumentos nombres de archivos o carpetas. Es decir, si introduce uno de
+estos comandos, deja un espacio y luego pulsa [Tab]{.kbd}, se le mostrarán
+las opciones que tiene, es decir, aparecerán los archivos y carpetas que
+puede abrir. Los diferenciará en que los nombres de las carpetas terminan
+aquí con una barra (`/`).
+
+Otra cosa que sería interesante que supiese es que puede indicar a Neovim
+que realice una acción sobre varios archivos; no solo uno. Con el comando
+`:argdo`, seguido de la acción a realizar, se realizará dicha acción sobre
+todos los archivos que se encuentran en ese momento en la lista de
+argumentos. Por ejemplo, puede realizar una búsqueda o una sustitución sobre
+varios archivos con un solo comando.
+
+Otra cosa que debe saber es que, al especificar una ruta, ya sea absoluta o
+relativa, como argumento de algún comando, puede usar un símbolo para
+indicar que se busque de forma recursiva, es decir, con cualquier grado de
+anidación. Ese símbolo del que hablo son dos asteriscos seguidos: `**`. Por
+ejemplo,
+
+```vim
+:find fuentes/**/*.md
+```
+
+abriría todos los archivos que, estando bajo la carpeta _fuentes_, con
+cualquier grado de anidación, tengan por extensión _.md_. Con lo de "con
+cualquier grado de anidación" quiero decir que basta con que esté en el
+árbol de carpetas bajo el directorio _fuentes_, aunque no sea un
+descendiente directo de este.
+
+Es muy común añadir `**` a la variable de Neovim `:path`, para que estos
+comandos sean más cómodos de usar. No sé si se usa solo para el comando
+`:find` o si sirve también para los otros. Personalmente, sí uso esto en mi
+configuración, pues me resulta muy cómodo buscar rápidamente. Esto se
+configura de la forma siguiente:
+
+```vim
+:set path+=**
+```
+
+En Lua,
+
+```lua
+vim.opt.path = vim.opt.path + "**"
+```
+
+(tanto en su designación normal como si lo hace terminando con barra, `/`)
+
+Vea la [diferencia entre _buffer_, ventana y
+pestaña](#buffer-ventana-pestana).
+
+Otra cos muy útil es saltar a archivo bajo el cursor. Se hace con [g]{.kbd}
+[f]{.kbd}. Esto está muy bien cuando se está en un índice de contenidos o
+algo así.
+
+
+
+
