@@ -20,13 +20,4 @@ Algunas de las reglas de estilo que uso son las siguientes:
   tipográfico de estas las itálicas, como en _plug-in_, por ejemplo.
 
 
-<!--
-Ejecute los comandos de Gemini CLI siguientes:
-
-```
-/directory add fuentes
-```
--->
-
-
 
