@@ -12,12 +12,21 @@ han usado, aunque la mayoría de las referencias en realidad no están
 indicadas ahí ya que son sacadas de webs.
 
 El índice (o tabla) de contenidos es el archivo @toc.mk , es decir, desde
-este se "incrustan" los archivos con el contenido del documento, que se
-encuentran en el directorio @fuentes . El orden de las secciones en el
-documento será el que se indique en este índice.
+este se "incrustan" los archivos con el contenido del documento.
 
 Algunas de las reglas de estilo que uso son las siguientes:
 
 - Hago un gran uso de sintagmas (_phrases_) en inglés. Empleo como recurso
   tipográfico de estas las itálicas, como en _plug-in_, por ejemplo.
+
+
+<!--
+Ejecute los comandos de Gemini CLI siguientes:
+
+```
+/directory add fuentes
+```
+-->
+
+
 

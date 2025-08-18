@@ -1,1 +1,4 @@
+./.gemini
+./.gemini/*
+./.geminiignore
 ./gemini.md
