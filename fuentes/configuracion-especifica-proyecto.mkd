@@ -2,59 +2,49 @@
 
 
 
-### Configuración específica de proyecto
+### Ajustes específicos de proyecto
 
-En Vim existe, desde hace bastante, una funcionalidad llamada _modelines_
-que permite hacer ajustes de Vim para un archivo en particular (son ajustes
-que "pisan" los de su configuración). Las _modelines_ se especifican en
-comentarios. Se pone primero el signo de apertura de comentario del lenguaje
-del que se trate (en el archivo), seguido de `vim:` y seguido del ajuste de
-Vim que desee añadir. Por ejemplo, con algo así al final de un documento de
-TeX:
+Existen varias cosas que se pueden hacer para aplicar una capa de ajustes a
+un directorio en conctreo, incluyendo a todo lo que se encuentre "bajo"
+este.
 
-```tex
-% vim: fdm=syntax
-```
+Desde hace mucho, Vim traía la funcionalidad que se conoce como _modeline_.
+Consiste en la especificación de ajustes de Vim en comentarios del código
+TKTK.
 
-Esto tiene sus inconvenientes y creo que no es una solución válida para
-especificar unos ajustes para todo un proyecto. Por ejemplo, está ensuciando
-los archivos con cosas que no le interesarán a gente que use otros editores.
-Además, debe poner esas _modelines_ en todos los archivos, lo cual hace que
-sea un incordio.
+Lo cierto es que nunca me ha gustado hacer uso de esta funcionalidad. Hay
+varias razones: pueden originar problemas de seguridad, "ensucian" los
+archivos del proyecto, etc.
 
-Lo ideal sería encontrar algo como lo que se puede hacer, por ejemplo, en el
-editor VSCode. En este, se puede especificar unos ajustes locales
-simplemente con la carpeta oculta _.vscode_ en la raíz del proyecto.
+Actualmente, Neovim [trae compatibilidad][neovim-editorconfig] de serie con
+[EditorConfig][], que es un _software_ para la especificación de ciertos
+ajustes básicos de editor, como indentación, etc. Lo único que tiene que
+hacer es crear, en el directorio raíz del proyecto, un archivo llamado
+_.editorconfig_, especificando en este, en el formato EditorConfig, los
+ajustes que desea que se apliquen a todo el proyecto.
 
-A este respecto, existen [varias
-soluciones](https://vi.stackexchange.com/a/20908/22600), pero considero que
-estas están algo anticuadas. La forma que creo que es actualmente la más
-cómoda y elegante es con el _plug-in_ [Neoconf][]{.plgin}.
+[neovim-editorconfig]: https://neovim.io/doc/user/editorconfig.html
+[EditorConfig]: https://editorconfig.org/
+
+Con esta solución, no tendrá tantas posibilidades como con la _modeline_, ya
+que se trata ---tal y como he dicho--- de ajustes básicos de editores. En
+cualquier caso, los ajustes avanzados de Neovim sería deseable hacerlos en
+función de los distintos lenguajes que se estén editando, por medio de
+[autocomandos][].
+
+Evidentemente, tanto con los ajustes de _modeline_ como con el archivo de
+EditorConfig, estos "pisan" los de la configuración general de Neovim.
+
+Para quien, aun sabiendo esto, desee especificar para un proyecto ajustes
+avanzados de Neovim, existe con este propósito un _plug-in_ llamado
+[Neoconf][]{.plgin}.
 
 [Neoconf]: https://github.com/folke/neoconf.nvim
 
+Otra opción podría ser haciendo uso de algún entorno para el proyecto. Por
+ejemplo, un contenedor Docker o un entorno Nix. Gracias al entorno, se
+podrían especificar también algunos ajustes de Neovim. TKTK.
 
-* * * *
-
-
-Bueno, creo que ahora Neovim [trae soporte nativo para EditorConfig][]. De
-hecho, esta es la forma con la que me quedaría actualmente, aunque
-únicamente es válida para ajustes que puedan ser comunes para los distintos
-editores que se vayan a usar; cosas como la indentación, etc. De hecho, se
-podría considerar a EditorConfig como una especificación de ajustes de los
-editores e IDEs; no una implementación; habrá una por cada editor o IDE.
-
-[trae soporte nativo para EditorConfig]: https://neovim.io/doc/user/editorconfig.html
-
-
-* * * *
-
-
-Creo que se puede especificar también una configuración específica mediante
-los entornos de desarrollo, como `venv` de Python o con el gestor de
-paquetes Nix. O quizás solo interese cierta configuración que se añada a la
-básica que ya tengo. No sé cómo se haría y tampoco estoy seguro de que se
-pueda hacer.
 
 
 
