@@ -1,7 +1,5 @@
-
 input-files:
   - src/introduccion.mkd
-  - src/novedades-0.12.mkd
   - src/fuentes-info.mkd
   - src/historia.mkd
   - src/mitos.mkd
@@ -63,6 +61,7 @@ input-files:
   - src/plug-ins.mkd
   -   src/gestion-diy-de-plugins.mkd
   - src/otros.mkd
+  -   src/novedades-0.12.mkd
   -   src/esquemas-de-colores.mkd
   -   src/ctags.mkd
   -   src/dap.mkd
@@ -76,4 +75,4 @@ input-files:
   -   src/concealing.mkd
   -   src/editar-documentacion.mkd
   -   src/gestion-archivos-minimal.mkd
-
+  - src/referencias.mkd

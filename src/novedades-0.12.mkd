@@ -1,5 +1,5 @@
 
-# Novedades en Neovim 0.12
+### Novedades en Neovim 0.12
 
 La versión 0.12 de Neovim, aunque todavía en desarrollo, se perfila como un
 lanzamiento fundamental bajo el lema "El año de Nvim Out of the Box (OOTB)".
@@ -12,7 +12,7 @@ esperadas.
 
 
 
-## Gestor de _plug-ins_ nativo
+#### Gestor de _plug-ins_ nativo
 
 Una de las adiciones más anticipadas es un gestor de _plug-ins_ integrado en
 el propio Neovim. Esto podría simplificar enormemente la instalación y
@@ -22,7 +22,7 @@ lazy.nvim, para configuraciones sencillas.
 
 
 
-## Mejoras en la asincronía: `vim.async`
+#### Mejoras en la asincronía: `vim.async`
 
 Se introducirá una nueva abstracción para tareas asíncronas con `vim.async`.
 Esto proporcionará una base más sólida y estructurada para la concurrencia,
@@ -32,7 +32,7 @@ en segundo plano de forma más eficiente y robusta.
 
 
 
-## Mejoras en la Interfaz de Usuario (UI)
+#### Mejoras en la Interfaz de Usuario (UI)
 
 Se planean varias mejoras en la interacción con la interfaz de usuario:
 
@@ -47,7 +47,7 @@ Se planean varias mejoras en la interacción con la interfaz de usuario:
 
 
 
-## API para imágenes
+#### API para imágenes
 
 Se está desarrollando una nueva API estándar para manejar y mostrar imágenes
 directamente en los _buffers_ de Neovim, abriendo la puerta a nuevas
@@ -56,7 +56,7 @@ _plug-ins_.
 
 
 
-## Multicursor y supermacros
+#### Multicursor y supermacros
 
 Se esperan mejoras en la funcionalidad de multicursor nativa y en el sistema
 de macros, permitiendo ediciones complejas de manera más fluida e intuitiva.

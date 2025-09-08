@@ -31,10 +31,13 @@ sintáctico. Aun así, en Neovim están trabajando para tener resaltado
 semántico también de serie.
 
 Esto tiene relación también con lo que explica Nadia Eghbal en su libro
-TKTKTKTKTKTKTK[^1]
+TKTKTKTKTKTKTK[^libro-eghball].
 
-[^1]: De hecho, si algo he sacado en claro tras leer el libro es que los que
-contribuyen actualmente al _open source_ son gente menos ideologizada y más
-práctica. Lo que quieren es que puedan contribuir de un modo más cómodo.
+[^libro-eghball]: De hecho, si algo he sacado en claro tras leer el libro es
+  que los que contribuyen actualmente al _open source_ son gente menos
+  ideologizada y más práctica. Lo que quieren es que puedan contribuir de un
+  modo más cómodo.
+
+
 
 
