@@ -3,8 +3,9 @@
 
 ## _Plug-ins_
 
-En el mundo de Neovim (y Vim), llaman _plug-ins_ a lo que en otros editores
-llaman extensiones (_extensions_). TKTK.
+En el mundo de Neovim (y Vim), llaman _plug-ins_ (hay quien lo traduce como
+_complementos_) a lo que en otros editores llaman extensiones
+(_extensions_). TKTK.
 
 Quizás, reciban este nombre porque, en lugar de ser muy completos, son algo
 que nos sigue permitiendo hacer _scriptable_ la configuración del editor.
