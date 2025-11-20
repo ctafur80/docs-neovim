@@ -14,7 +14,9 @@ input-files:
   -   src/buffer-ventana-y-pestana.mkd
   -   src/variables.mkd
   -   src/portapapeles-sistema.mkd
+  - src/conceptos-intermedios.mkd
   -   src/lista-quickfix.mkd
+  -   src/location-list.mkd
   - src/conceptos-avanzados.mkd
   -   src/resaltado.mkd
   -   src/ejemplos-uso-avanzado.mkd

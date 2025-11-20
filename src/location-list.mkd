@@ -1,0 +1,16 @@
+
+
+
+### _Location list_
+
+La _location list_ es parecida a la lista _quickfix_.
+
+Con algunos complementos se puede tener la integración de estas listas con
+ciertos elementos de algún lenguaje. Así, por ejemplo, gracias a TKTK se
+tiene que se puede acceder a una tabla de contenidos TKTK. Se lanza con la
+secuencia de teclas `gO`.
+
+En general, a las listas de este tipo las suelen llamar _outlines_ en otros
+editores/IDEs, como VSCode o Zed, por ejemplo.
+
+
